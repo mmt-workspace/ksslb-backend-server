@@ -1,5 +1,5 @@
 /* Database name */
-CREATE DATABASE ksslbPay;
+CREATE DATABASE ksslb;
 
 
 
@@ -174,7 +174,6 @@ CREATE TABLE sign_up(
 );
 
 /* Demography */
-
 CREATE TABLE demography_table (
     
     demography_table_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -202,7 +201,6 @@ CREATE TABLE parent_table (
 );
 
 /* Education Background */
-
 CREATE TABLE edu_table (
     
      edu_table_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -212,6 +210,7 @@ CREATE TABLE edu_table (
      gpa VARCHAR(100),
      user_token VARCHAR(200) NOT NULL,
      valuePer int DEFAULT 0,
+     applying_for_type VARCHAR(100),
      signupDate DATETIME DEFAULT CURRENT_TIMESTAMP ,
      UpdateDate DATETIME
 
@@ -225,3 +224,34 @@ CREATE TABLE edu_table (
    user_token VARCHAR(200) NOT NULL
 
 )
+
+/* Applicant Doc */
+
+CREATE TABLE applicant_doc(
+
+    applicant_doc_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    document_file_name VARCHAR(200) NOT NULL,
+    document_type_name VARCHAR(200) NOT NULL,
+    upload_status VARCHAR(100),
+    user_token VARCHAR(200),
+    file_token VARCHAR(200),
+    createdAtTime VARCHAR(100),
+    createdAtDate VARCHAR(100)
+);
+
+/* Set Document  */
+
+CREATE TABLE upload_doc(
+
+          upload_doc_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+          document_type_name VARCHAR(200) NOT NULL,
+          resdentialType VARCHAR(200) NOT NULL,
+          documentType VARCHAR(200) NOT NULL,
+          instrct VARCHAR(500) NOT NULL,
+          upload_status VARCHAR(100),
+          doc_token VARCHAR(200),
+          createdAtTime VARCHAR(100),
+          createdAtDate VARCHAR(100)
+
+);
+

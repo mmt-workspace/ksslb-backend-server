@@ -15,6 +15,7 @@ Bio = (fname,lname,mobileNumber,gender,d_o_b,resdential_type,user_token)=>{
                     if(err) return console.log(err.message)
                     console.log("bio_table inserted")
             })
+            
 
 }
 

@@ -15,7 +15,7 @@ GetBio = (req,res)=>{
         return res.sendStatus(422)
     }
 
-    
+    // console.log(user_token)
     
     
     
@@ -32,11 +32,12 @@ GetBio = (req,res)=>{
     db.query(sql2,[user_token],(err,result2)=>{
           if(err) console.log(err.message)
 
-
+   
     db.query(sql3,[user_token],(err,result3)=>{
             if(err) console.log(err.message)
   
     db.query(sql4,[user_token],(err,result4)=>{
+
             if(err) console.log(err.message)
         
 

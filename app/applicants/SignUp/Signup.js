@@ -11,7 +11,7 @@ const Edu = require("./Edu")
 
 Signup = (req,res)=>{
 
-    const {fname,lname,email,mobileNumber,gender,d_o_b,resdential_type,state_of_origin,local_gov,pswrd} = req.body
+    const {fname,lname,email,mobileNumber,gender,d_o_b,resdential_type,degree_type,state_of_origin,local_gov,pswrd} = req.body
 
        
      if(validator.isEmpty(fname),validator.isEmpty(lname),validator.isEmpty(email),validator.isEmpty(mobileNumber),validator.isEmpty(gender),validator.isEmpty(d_o_b),validator.isEmpty(resdential_type),validator.isEmpty(state_of_origin),validator.isEmpty(local_gov),validator.isEmpty(pswrd)){
@@ -55,7 +55,7 @@ Signup = (req,res)=>{
                     // Send parent_table
                     Parent(user_token)
                     // Send edu_table
-                    Edu(user_token)
+                    Edu(user_token,degree_type)
 
                     console.log("sign_up inserted")
 

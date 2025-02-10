@@ -11,7 +11,10 @@ const GetBio = require("../app/applicants/GetData/GetBio")
 const DemographyUpdate = require("../app/applicants/SignUp/UpdateCredentials/Demography")
 const ParentUpdate = require("../app/applicants/SignUp/UpdateCredentials/ParentUpdate")
 const UpdateEdu = require("../app/applicants/SignUp/UpdateCredentials/UpdateEdu")
-
+const {UploadDoc,GetUploadDoc,DeleteUploadDoc} = require("../app/dashbord/uploadDoc/UploadDoc")
+const {ApplicantUplaod_Doc,GetUploadDocApplicant} = require("../app/applicants/SignUp/ApplicantUplaod_Doc")
+const GetAllApplicant = require("../app/dashbord/GetApplicantData/GetAllApplicant")
+const Get_By_Qualification_Type = require("../app/dashbord/GetApplicantData/Get_By_Qualification_Type")
 
 
 
@@ -36,11 +39,18 @@ router.put("/demography_update",DemographyUpdate)
 router.put("/parent_update",ParentUpdate)
 // Update Education 
 router.put("/edu_update",UpdateEdu)
+// UploadDoc
+router.post("/upload_doc",UploadDoc)   
+// applicant upload document
+router.post("/applicant_upload_doc",ApplicantUplaod_Doc).get("/get_upload_doc/:user_token",GetUploadDoc)
+// GetAllApplicant
+router.get("/get_all_applicant",GetAllApplicant)
+// get udergraduate or post graduate
+router.get("/get_by_qualification_type/:type",Get_By_Qualification_Type).get("/upload_doc",GetUploadDoc).delete("/delete_upload_doc/:id",DeleteUploadDoc)
 
 
 
-
-
+ 
 
 
 

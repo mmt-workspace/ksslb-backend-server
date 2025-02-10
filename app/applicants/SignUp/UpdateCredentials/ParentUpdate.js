@@ -4,7 +4,8 @@ const RandomID = require('../../../../functions/RandomID')
 
 
 ParentUpdate = (req,res)=>{
-
+       
+        
         
               const {father_full_name,mother_full_name,guardian_valid_mobile,user_token} = req.body
               const valuePer = 25
