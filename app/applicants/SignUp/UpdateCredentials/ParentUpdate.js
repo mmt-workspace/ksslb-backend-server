@@ -24,7 +24,7 @@ ParentUpdate = (req,res)=>{
                 })
  
             })
-
+ 
 
 
 }

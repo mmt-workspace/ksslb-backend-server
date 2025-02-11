@@ -9,7 +9,7 @@ UpdateEdu = (req,res)=>{
               const {matric_num,faculty,deparment,gpa,user_token} = req.body
               const valuePer = 25
               
-              
+                
               const sql = "UPDATE edu_table SET matric_num = ?,faculty = ?, deparment = ?,gpa = ? , valuePer = ? WHERE user_token = ?;";
         
               const list = [matric_num,faculty,deparment,gpa,valuePer,user_token]

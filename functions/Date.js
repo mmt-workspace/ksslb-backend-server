@@ -29,7 +29,7 @@
       // Convert to 12-hour format
       Hour = (Hour % 12) || 12;
     
-      // Format minutes and seconds with leading zeros
+      // Format minutes and seconds with leading zeros 
       const formattedMinutes = String(Minutes).padStart(2, '0');
       const formattedSeconds = String(Second).padStart(2, '0');
     
