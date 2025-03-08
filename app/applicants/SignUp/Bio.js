@@ -17,6 +17,7 @@ Bio = (fname,lname,mobileNumber,gender,d_o_b,resdential_type,user_token)=>{
             })
             
 
+            
 }
 
 

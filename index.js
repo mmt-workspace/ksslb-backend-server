@@ -6,6 +6,10 @@ const cookieParser = require('cookie-parser')
 const db = require("./database/db")
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const path = require('path');
+
+
+
 
 
 const port = 5000
@@ -59,6 +63,11 @@ app.use('/auth',auth)
 
 // Public
 app.use("/pub",public)
+
+
+// Access files
+app.use("/get_doc/",express.static(path.join(__dirname,"assets/documents")))
+
 
 // Any 
 app.get('/', (req, res) => res.send('Home MMT'))

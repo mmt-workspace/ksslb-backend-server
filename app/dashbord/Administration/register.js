@@ -1,6 +1,6 @@
 const db = require("../../../database/db")
 const validator = require("validator")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const RanDomID = require("../../../functions/RandomID")
 const TokensGenerator = require("../../../functions/TokensGenerator")
 const CreateJwt = require("../../../auth/CreateJwt")

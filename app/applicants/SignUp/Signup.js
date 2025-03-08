@@ -1,12 +1,13 @@
 const db = require('../../../database/db');
 const validator = require("validator")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const TokensGenerator = require('../../../functions/TokensGenerator')
 const applicant_credentials = require("./applicant_credentials")
 const Bio = require("./Bio")
 const Demography = require("./Demography")
 const Parent = require("./Parent")
 const Edu = require("./Edu")
+const BankDetail = require("./BankDetails")
 
 
 Signup = (req,res)=>{
@@ -56,6 +57,8 @@ Signup = (req,res)=>{
                     Parent(user_token)
                     // Send edu_table
                     Edu(user_token,degree_type)
+                    // Banl Details
+                    BankDetail(user_token)
 
                     console.log("sign_up inserted")
 

@@ -7,11 +7,11 @@ const db = require("../../../database/db")
 
 // Get the Paid list
 
-GetAmount = (req,res) =>{
+get_scholarship_list_applicant = (req,res) =>{
 
 
 
-    const sql = "SELECT * FROM amount_to_pay ORDER BY amount_to_pay_id DESC;"
+    const sql = "SELECT * FROM Set_scholarship ORDER BY Set_scholarship_id DESC;"
 
     db.query(sql,(err,result) =>{
 
@@ -20,8 +20,6 @@ GetAmount = (req,res) =>{
 
           res.send(result)
 
-
-
     })
 
 
@@ -29,4 +27,4 @@ GetAmount = (req,res) =>{
 }
 
 
-module.exports = GetAmount
+module.exports = get_scholarship_list_applicant

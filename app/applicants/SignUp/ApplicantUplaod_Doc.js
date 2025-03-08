@@ -13,15 +13,16 @@ ApplicantUplaod_Doc = (req,res)=>{
      
    
 
-     const sql = "INSERT INTO applicant_doc(document_file_name,document_type_name,upload_status,user_token,file_token ,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?);"
+     const sql = "INSERT INTO applicant_doc(document_file_name,document_type_name,upload_status,user_token,file_token,verify_status,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?,?);"
 
      const time = SetTimeFormat()
      const date = SetDateFomat()
      
      const upload_status = "done"
+     const verify_status = "not"
  
   
-     db.query(sql,[document_file_name,document_type_name,upload_status,user_token,file_token,time,date],(err,result)=>{
+     db.query(sql,[document_file_name,document_type_name,upload_status,user_token,file_token,verify_status,time,date],(err,result)=>{
 
          if(err) return console.log(err.message)
 
@@ -29,7 +30,6 @@ ApplicantUplaod_Doc = (req,res)=>{
              status:true,
              textStatus:"Uploaded"
           })
-
 
 
 

@@ -33,21 +33,26 @@ CREATE TABLE jwt(
 
 
 
-/* Set Amount for the payment */
-CREATE TABLE SetAmount(
+/* Set Scholarship */
+CREATE TABLE Set_scholarship(
 
-       set_amount_id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+       Set_scholarship_id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+       scholarship_name VARCHAR(200) NOT NULL, 
+       scholarship_type VARCHAR(200) NOT NULL, 
        qualification_type VARCHAR(200) NOT NULL, 
-       amount DOUBLE NOT NULL,
-       acct_typ VARCHAR(100) NOT NULL,
-       user_token VARCHAR(200) NOT NULL,
-       insertedDate  DATETIME DEFAULT CURRENT_TIMESTAMP
+       resdential_type VARCHAR(200) NOT NULL, 
+       scholarship_description TEXT,
+       will_pay VARCHAR(50) NOT NULL,
+       amount_to_pay DOUBLE DEFAULT 0.00,
+       schl_token VARCHAR(200) NOT NULL,
+       createdAtTime  VARCHAR(100),
+       createdAtDate VARCHAR(100)
 );
 
 
 
 /*  Track and Record Login */
-CREATE TABLE WatchSignSignOut(
+/* CREATE TABLE WatchSignSignOut(
 
         WatchSignSignOut_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
         user_token VARCHAR(200) NOT NULL,
@@ -55,12 +60,12 @@ CREATE TABLE WatchSignSignOut(
         login_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         logout_data VARCHAR(200)
 
-);
+); */
 
 
 
 /* Register account */
-CREATE TABLE register_list(
+/* CREATE TABLE register_list(
 
      register_list_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
      fname VARCHAR(200) NOT NULL,
@@ -72,7 +77,7 @@ CREATE TABLE register_list(
      amount DOUBLE NOT NULL,
      registerDateDATETIME DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+ */
 
 /* Details */
 CREATE TABLE details(
@@ -118,7 +123,7 @@ CREATE TABLE Validation(
 
 /* Amount */
 
-CREATE TABLE amount_to_pay(
+/* CREATE TABLE amount_to_pay(
         
         amount_to_pay_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
         amount DOUBLE NOT NULL,
@@ -126,7 +131,7 @@ CREATE TABLE amount_to_pay(
         amount_token VARCHAR(200) NOT NULL,
         registerDate DATETIME DEFAULT CURRENT_TIMESTAMP
            
-);
+); */
 
 /* Track */
 
@@ -148,6 +153,7 @@ CREATE TABLE sign_up(
         sign_up_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
         email VARCHAR(200) NOT NULL,
         mobileNumber VARCHAR(200) NOT NULL,
+        verify_status VARCHAR(100) DEFAULT "Not Verified",
         pswrd VARCHAR(200) NOT NULL,
         user_token VARCHAR(200) NOT NULL,
         signupDate DATETIME DEFAULT CURRENT_TIMESTAMP   
@@ -205,8 +211,10 @@ CREATE TABLE edu_table (
     
      edu_table_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
      matric_num VARCHAR(100),
+     university VARCHAR(100),
      faculty VARCHAR(100),
      deparment VARCHAR(100),
+     current_level VARCHAR(100),
      gpa VARCHAR(100),
      user_token VARCHAR(200) NOT NULL,
      valuePer int DEFAULT 0,
@@ -216,6 +224,21 @@ CREATE TABLE edu_table (
 
 );
 
+/* Bank Details */
+CREATE TABLE bank_details(
+
+    bank_details_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    bank_name VARCHAR(100),
+    account_name VARCHAR(100),
+    account_number VARCHAR(100),
+    user_token VARCHAR(200) NOT NULL,
+    valuePer int DEFAULT 0,
+    signupDate DATETIME DEFAULT CURRENT_TIMESTAMP ,
+    UpdateDate DATETIME
+);
+
+
+
 
  CREATE TABLE IF NOT EXISTS applicant_credentials(
 
@@ -223,21 +246,41 @@ CREATE TABLE edu_table (
    s_i_d int NOT NULL,
    user_token VARCHAR(200) NOT NULL
 
-)
+);
 
 /* Applicant Doc */
 
 CREATE TABLE applicant_doc(
 
     applicant_doc_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    document_file_name VARCHAR(200) NOT NULL,
     document_type_name VARCHAR(200) NOT NULL,
+    document_file_name VARCHAR(200) NOT NULL,
+    residential_type VARCHAR(200),
+    ref_doc_token VARCHAR(200),
+    qualification_type VARCHAR(200),
     upload_status VARCHAR(100),
+    verify_status VARCHAR(50),
+    rejectionReason VARCHAR(200),
     user_token VARCHAR(200),
     file_token VARCHAR(200),
     createdAtTime VARCHAR(100),
     createdAtDate VARCHAR(100)
 );
+  /* apply scholarship */
+  CREATE TABLE apply_scholarship(
+
+    apply_scholarship_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_token VARCHAR(200) NOT NULL,
+    scholarship_applied VARCHAR(200) NOT NULL,
+    scholarship_type VARCHAR(200) NOT NULL,
+    schl_token VARCHAR(200) NOT NULL,
+    token VARCHAR(200) NOT NULL,
+    apply_status VARCHAR(100),
+    award_status VARCHAR(100),
+    createdAtTime VARCHAR(100),
+    createdAtDate VARCHAR(100)
+);
+
 
 /* Set Document  */
 
@@ -254,4 +297,5 @@ CREATE TABLE upload_doc(
           createdAtDate VARCHAR(100)
 
 );
+
 
