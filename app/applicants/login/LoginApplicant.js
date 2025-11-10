@@ -1,6 +1,7 @@
 const db = require("../../../database/db")
-/* const {CreateAccessToken,CreateRefreshToken} = require("../../../auth/jwt")
-const {UpdateJwtRefreshToken} = require("../../../auth/UpdateJwtRefreshToken") */
+const {CreatAccessToken,CreateRefreshToken,UpdateJwtRefreshToken} = require("../../../auth/jwt")
+ 
+
 
 
 
@@ -17,24 +18,24 @@ LoginApplicant = (req,res)=>{
 
     if(err) return console.log(err)
 
-  //  let AccessToken =  CreateAccessToken(result[0].user_token)
-   // let RefreshToken =  CreateRefreshToken(result[0].user_token)
+    let AccessToken =  CreatAccessToken(result[0].user_token)
+    let RefreshToken =  CreateRefreshToken(result[0].user_token)
     let user_token = result[0].user_token
    
     // Update Refresh token 
-   // UpdateJwtRefreshToken(user_token,RefreshToken)
+    UpdateJwtRefreshToken(user_token,RefreshToken)
    
 
-    res./* cookie('clienttokens',RefreshToken,{
-       httpOnly:true,
-       secure: true,
-       sameSite: 'none',
-       maxAge: 24 * 60 * 60 * 1000
-      } // lax
-    ). */send({
+    res.cookie('applicant',RefreshToken,{
+      httpOnly: true,
+      secure: true,  // Disable secure for local testing
+      sameSite: 'none', // Lax works on localhost
+      path: '/',
+      maxAge: 24 * 60 * 60 * 1000
+    }).send({
             status: true,
-           // accessToken : AccessToken,
-            Usertoken: user_token,
+            accesstoken : AccessToken,
+           //  Usertoken: user_token,
             textStatus:"Processing",
       })
      

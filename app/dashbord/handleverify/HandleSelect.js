@@ -20,7 +20,7 @@ HandleSelect = (req,res)=>{
        const sql = "UPDATE sign_up SET verify_status = ? WHERE user_token = ?;"
      //  let verify_status 
 
-    /*     if(type === "accept"){
+       /*     if(type === "accept"){
             verify_status = type
         } else if(type === "revoked"){
              verify_status = type

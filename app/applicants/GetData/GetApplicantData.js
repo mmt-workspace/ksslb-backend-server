@@ -6,10 +6,11 @@ GetApplicantData = (req, res) => {
 
   const user_token = req.params.user_token
 
+   // console.log(user_token)
   if (validator.isEmpty(user_token)) {
     return res.sendStatus(422)
   }
-
+// console.log("here")
 
 
   const checkUserTokenSql = "SELECT COUNT(*) AS count FROM bio_table WHERE user_token = ?;"
@@ -17,10 +18,11 @@ GetApplicantData = (req, res) => {
   db.query(checkUserTokenSql, [user_token], (err, result) => {
 
     if (err) return console.log(err.message)
-
+     
     if (result[0].count === 0) {
       return res.sendStatus(422)
     }
+  
     
 
     
@@ -32,9 +34,13 @@ GetApplicantData = (req, res) => {
     const sql6 = "SELECT * FROM bank_details WHERE user_token = ?;"
     const sql7 = "SELECT * FROM apply_scholarship WHERE user_token = ?;"
     const sql8 = "SELECT * FROM applicant_doc WHERE user_token = ?;"
+    const sql9 = "SELECT * FROM social_media_table WHERE user_token = ?;"
+    const sql10 = "SELECT * FROM applicant_credentials WHERE user_token = ?;"
     
+
     
     db.query(sql1, [user_token], (err, result1) => {
+      
       if (err) return console.log(err.message)
 
       db.query(sql2, [user_token], (err, result2) => {
@@ -60,22 +66,38 @@ GetApplicantData = (req, res) => {
 
                           db.query(sql8, [user_token], (err, result8) => {
                             if (err) return console.log(err.message)
-                
-                            res.send({
-                              bio_data: result1,
-                              demography_data: result2,
-                              parent_data: result3,
-                              edu_data: result4,
-                              sign_up: result5,
-                              bank_details_data: result6,
-                              apply_scholarship_data: result7,
-                              applicant_doc_data: result8,
-                              bioProgressStatus: result1[0].valuePer + result2[0].valuePer + result3[0].valuePer + result4[0].valuePer
-                            })
-                          })
+
+                            db.query(sql9, [user_token], (err, result9) => {
+                              if (err) return console.log(err.message)
+
+
+                                 db.query(sql10, [user_token], (err, result10) => {
+                              if (err) return console.log(err.message)
+
+                                res.send({
+                                  bio_data: result1,
+                                  demography_data: result2,
+                                  parent_data: result3,
+                                  edu_data: result4,
+                                  sign_up: result5,
+                                  bank_details_data: result6,
+                                  apply_scholarship_data: result7,
+                                  applicant_doc_data: result8,
+                                  social_media_data: result9,
+                                  applicant_credentials: result10,
+                                  bioProgressStatus: result1[0].valuePer + result2[0].valuePer + result3[0].valuePer + result4[0].valuePer
+                                })
+                              })
 
 
 
+                              })
+                           
+
+
+
+   
+                      })
 
 
                        

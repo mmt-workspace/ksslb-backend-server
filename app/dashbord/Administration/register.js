@@ -38,13 +38,14 @@ RegisterAdministration = async(req,res) =>{
      const  user_roles = [
           "Administrator",
           "Manage",
-          "Finance Manager",
-          "Client Support",
-          "Auditor / Compliance Officer",
-          "Read-Only / Viewer",
-          
-          //"Developer / Technical Support",
-      ]
+          "Selector",
+          "Validator",
+          "Verifier",
+          "Bank reviewer",
+          "account-helper",
+          "Manage Loan",
+          "Manage Scholarship"
+           ]
 
        let acc_level
       
@@ -73,14 +74,28 @@ RegisterAdministration = async(req,res) =>{
           case user_roles[5]:
                     // code block
                     acc_level = 50
+          case user_roles[6]:
+                    // code block
+                    acc_level = 40
               break;
+            case user_roles[7]:
+                    // code block
+                    acc_level = 111
+              break;
+             
+                case user_roles[8]:
+                    // code block
+                    acc_level = 222
+              break;
+
               default:
                    // code block
              res.sendStatus(422)
              return
         }
 
-        const  passwrd = RanDomID(32996582).toString()
+       // const  passwrd = RanDomID(32996582).toString()
+        const  passwrd = "12345"
         const saltRound = 10
         let hashPasswrd = await bcrypt.hash(passwrd,saltRound)
   
@@ -96,12 +111,13 @@ RegisterAdministration = async(req,res) =>{
        // Create Table for JWT 
         CreateJwt(userToken)
         // Send login details to user email
-        SendPassward(email,passwrd)
+       // SendPassward(email,passwrd)
 
           res.send({
                statusText:"Registered",
                status: true
           })
+          
 
     })
 

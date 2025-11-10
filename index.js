@@ -7,32 +7,35 @@ const db = require("./database/db")
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const path = require('path');
+const requestIp = require("request-ip")
 
 
 
 
 
-const port = 5000
+const port = 8600
 
 const app = express();
 
-
+ 
 
 app.use(cors(
     {
-        origin: ["http://localhost:3000","http://192.168.8.102"],
+        origin: ["http://localhost:3000","http://localhost:5000","http://192.168.0.107:3000","https://ksslb.mmt-ng.com"],
         credentials: true
     }
 ))
 
-
+  
 app.use(cookieParser())
    
 app.use(express.json())
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(bodyParser.json({limit: '10mb'}));
-
+//  request-ip middleware
+app.use(requestIp.mw());
+app.set('trust proxy', true);
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {  
@@ -47,6 +50,7 @@ const io = new Server(httpServer, {
 // All Routes Modules 
 const auth = require("./route/auth")
 const public = require("./route/public")
+const {authenticator} = require("./auth/jwt")
 
 
  
@@ -60,17 +64,26 @@ io.on("connection",(socket)=>{
 
 // Auth Route 
 app.use('/auth',auth)
-
+ 
 // Public
 app.use("/pub",public)
 
 
 // Access files
 app.use("/get_doc/",express.static(path.join(__dirname,"assets/documents")))
+// acces photos
+app.use("/get_photo/",express.static(path.join(__dirname,"assets/profile")))
 
 
-// Any 
-app.get('/', (req, res) => res.send('Home MMT'))
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+}) 
+ 
 
 httpServer.listen(port, () => console.log(`Server is running on port ${port}!`))
 

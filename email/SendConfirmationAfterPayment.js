@@ -12,12 +12,12 @@ const  SendPassward = (email,token,fname) =>{
           
        // create reusable transporter object using the default SMTP transport
        let transporter = nodemailer.createTransport({
-        host: "smtp.titan.email",
-        port: 465,
+        host: "smtp.hmailplus.com",
+        port: 587,
         secure: true, // true for 465, false for other ports
         auth: {
           user: "admin@mmt-ng.com", // generated ethereal user
-          pass: "admin@tech@Mastermind202", // generated ethereal password
+          pass: "36366360mmT@@", // generated ethereal password
         },
       });
       

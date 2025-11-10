@@ -8,12 +8,13 @@ const TokensGenerator = require("../../../functions/TokensGenerator")
 UploadDoc = (req,res)=>{
   
 
-     const {resdentialType,documentType,document_type_name,instrct} = req.body
+     const {resdentialType,documentType,document_type_name,document_for,instrct} = req.body
 
      const fieldsToValidate = {
         document_type_name,
         resdentialType,
         documentType,
+        document_for,
         instrct, 
       };
   
@@ -30,20 +31,20 @@ for (const [fieldName, fieldValue] of Object.entries(fieldsToValidate)) {
   }
      
 
-     const sql = "INSERT INTO upload_doc(document_type_name,resdentialType,documentType,instrct,upload_status,doc_token,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?,?);"
+     const sql = "INSERT INTO upload_doc(document_type_name,resdentialType,documentType,document_for,instrct,upload_status,doc_token,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?,?,?);"
      const time = SetTimeFormat()
      const date = SetDateFomat()
      const file_token = TokensGenerator(14)
      const upload_status = "Uploaded"
  
      
-     db.query(sql,[document_type_name,resdentialType,documentType,instrct,upload_status,file_token,time,date],(err,result)=>{
+     db.query(sql,[document_type_name,resdentialType,documentType,document_for,instrct,upload_status,file_token,time,date],(err,result)=>{
 
          if(err) return console.log(err.message)
 
           res.send({
              status:true,
-             textStatus:"Uploaded"
+             textStatus:"Document required Set"
           })
 
 
@@ -65,7 +66,7 @@ GetUploadDoc = (req,res)=>{
 
    
 
-    const sql = "SELECT * FROM upload_doc;"
+    const sql = "SELECT * FROM upload_doc ORDER BY upload_doc_id DESC;;"
 
     db.query(sql,(err,result)=>{
 
@@ -77,9 +78,25 @@ GetUploadDoc = (req,res)=>{
 
 }
 
+GetUploadDocForApplicantSection = (req,res)=>{
+
+
+
+    const document_for = req.params.document_for
+    const sql = "SELECT * FROM upload_doc WHERE document_for = ? ORDER BY upload_doc_id DESC;"
+
+    db.query(sql,[document_for],(err,result)=>{
+
+        if(err) return console.log(err.message)
+
+        res.json(result)
+
+    })
+
+}
 
 // Delete Upload Doc
-DeleteUploadDoc = (req, res) => {
+DeleteUploadDoc = (req, res) => { 
 
 
   const { id } = req.params;
@@ -115,4 +132,4 @@ DeleteUploadDoc = (req, res) => {
 
 
 
-module.exports = {UploadDoc,GetUploadDoc,DeleteUploadDoc}
+module.exports = {UploadDoc,GetUploadDoc,DeleteUploadDoc,GetUploadDocForApplicantSection}

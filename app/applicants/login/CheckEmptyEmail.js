@@ -32,7 +32,7 @@ const {email,userpassword} = req.body
                 (  async ()=>{
 
                     let valid = await bcrypt.compare(userpassword,result[0].pswrd)
-                      console.log(valid)
+                      // console.log(valid)
                     if(valid){
                         next()
                     }else{
