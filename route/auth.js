@@ -46,7 +46,7 @@ const {GenerateCode,VerifyAccount,Check_if_Verify} = require("../app/applicants/
 const UpdateBio = require("../app/applicants/SignUp/UpdateCredentials/UpdateBio")
 const Check_if_all_inputs_are_set = require("../app/applicants/SignUp/Check_if_all_inputs_are_set")
 const {Check_if_fill_all_before_apply} = require("../app/applicants/SignUp/applyloan/Check_if_fill_all_before_apply")
-
+const Check_If_all_files_are_provided = require("../app/applicants/SignUp/Check_If_all_files_are_provided")
 
  
 // loan section
@@ -175,7 +175,8 @@ router.put("/bio_update",UpdateBio)
 router.get("/Check_if_all_inputs_are_set/:user_token/:section_list_name",Check_if_all_inputs_are_set)
 // Check_if_fill_all_before_apply
 router.put("/Check_if_fill_all_before_apply",Check_if_fill_all_before_apply)
-
+// Check_If_all_files_are_provided
+router.get("check_If_all_files_are_provided/:user_token/:loan_category",Check_If_all_files_are_provided)
 // loan section
 
 

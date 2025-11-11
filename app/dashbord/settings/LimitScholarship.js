@@ -24,10 +24,6 @@ LimitScholarship = (req,res)=>{
     })
 
 
-
-
-
-
 }
 
 

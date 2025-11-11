@@ -8,7 +8,7 @@ const TokensGenerator = require("../../../functions/TokensGenerator")
 UploadDoc = (req,res)=>{
   
 
-     const {resdentialType,documentType,document_type_name,document_for,instrct} = req.body
+     const {resdentialType,documentType,document_type_name,document_for,loan_category,upload_for,visibility,instrct} = req.body
 
      const fieldsToValidate = {
         document_type_name,
@@ -16,6 +16,8 @@ UploadDoc = (req,res)=>{
         documentType,
         document_for,
         instrct, 
+        loan_category,
+        upload_for
       };
   
       const isEmpty = (value) => {
@@ -25,20 +27,23 @@ UploadDoc = (req,res)=>{
 
       // Loop through the fields and check if they are empty
 for (const [fieldName, fieldValue] of Object.entries(fieldsToValidate)) {
+
     if (isEmpty(fieldValue)) {
       return res.status(400).json({ error: `${fieldName} cannot be empty` });
     }
+
+    
   }
      
 
-     const sql = "INSERT INTO upload_doc(document_type_name,resdentialType,documentType,document_for,instrct,upload_status,doc_token,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?,?,?);"
+     const sql = "INSERT INTO upload_doc(document_type_name,resdentialType,documentType,document_for,loan_category,upload_for,visibility,instrct,upload_status,doc_token,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);"
      const time = SetTimeFormat()
      const date = SetDateFomat()
      const file_token = TokensGenerator(14)
      const upload_status = "Uploaded"
  
      
-     db.query(sql,[document_type_name,resdentialType,documentType,document_for,instrct,upload_status,file_token,time,date],(err,result)=>{
+     db.query(sql,[document_type_name,resdentialType,documentType,document_for,loan_category,upload_for,visibility,instrct,upload_status,file_token,time,date],(err,result)=>{
 
          if(err) return console.log(err.message)
 
