@@ -176,7 +176,7 @@ router.get("/Check_if_all_inputs_are_set/:user_token/:section_list_name",Check_i
 // Check_if_fill_all_before_apply
 router.put("/Check_if_fill_all_before_apply",Check_if_fill_all_before_apply)
 // Check_If_all_files_are_provided
-router.get("check_If_all_files_are_provided/:user_token/:loan_category",Check_If_all_files_are_provided)
+router.get("/check_If_all_files_are_provided/:user_token/:loan_category",Check_If_all_files_are_provided)
 // loan section
 
 

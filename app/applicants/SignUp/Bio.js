@@ -3,7 +3,7 @@ const RandomID = require('../../../functions/RandomID')
 
 
 
-Bio = (fname,lname,mobileNumber,gender,marital_status,d_o_b,resdential_type,user_token)=>{
+Bio = (fname,md_name,lname,mobileNumber,gender,marital_status,d_o_b,resdential_type,user_token)=>{
 
           //   console.log(fname,lname,mobileNumber,gender,marital_status,d_o_b,resdential_type,user_token)
 

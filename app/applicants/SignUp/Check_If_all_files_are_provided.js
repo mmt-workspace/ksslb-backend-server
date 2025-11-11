@@ -15,8 +15,8 @@ Check_If_all_files_are_provided = (req,res)=>{
  
      const {user_token,loan_category} = req.params
 
-      console.log(user_token,loan_category)
-      
+   //   console.log(user_token,loan_category)
+
      const sqlApplicant = "SELECT * FROM applicant_doc WHERE user_token = ?;"
      const sqlDoc = "SELECT * FROM upload_doc WHERE loan_category = ?;"
 
@@ -32,7 +32,7 @@ Check_If_all_files_are_provided = (req,res)=>{
 
                     const requiredDocs = result.length
                       
-                     console.log(requiredDocs)
+                  //   console.log(requiredDocs)
 
                    db.query(sqlApplicant,[user_token],(err,result)=>{
     
@@ -41,8 +41,28 @@ Check_If_all_files_are_provided = (req,res)=>{
      
                          const uploadedDocs = result.length
 
+                              
+                            if(requiredDocs === uploadedDocs){
 
-                            console.log(uploadedDocs)
+                                  res.send(
+                                    {
+                                        status:true,
+
+                                    }
+                                  )
+                                  return
+                            }else{
+
+                                  res.send(
+                                    {
+                                        status:false,
+                                        textStatus:"Please upload all required documents"
+
+                                    }
+                                  )
+
+                            }
+                        //     console.log(uploadedDocs)
     
     
     
