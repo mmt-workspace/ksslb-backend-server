@@ -39,16 +39,20 @@ UpdateAppType = (req,res) => {
 
           if(result.affectedRows > 0){
 
+
                res.send({
                     status:true,
                     textStatus:"Updated"
                })
 
+
           }else{
+               
                res.send({
                     status:false,
                     textStatus:"Not Updated"
                })
+
           }
     })
 

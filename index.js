@@ -73,6 +73,8 @@ app.use("/pub",public)
 app.use("/get_doc/",express.static(path.join(__dirname,"assets/documents")))
 // acces photos
 app.use("/get_photo/",express.static(path.join(__dirname,"assets/profile")))
+// 
+app.use("/uploads", express.static(path.join(__dirname, "assets/uploads")));
 
 
 

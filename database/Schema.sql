@@ -81,7 +81,7 @@ CREATE TABLE addbank(
         bank_name VARCHAR(200) NOT NULL,
         bank_token VARCHAR(200) NOT NULL,   
         bank_address VARCHAR(200) NOT NULL, 
-        bank_terms VARCHAR(200) NOT NULL,   
+        bank_terms text NOT NULL,   
         bank_branch VARCHAR(200) NOT NULL,  
         agent_phone_number VARCHAR(200) NOT NULL,  
         bank_email  VARCHAR(200) NOT NULL,  
@@ -266,8 +266,8 @@ CREATE TABLE scholarship_steps(
 
 );
 
-/* alter */
-alter table bio_table add column   md_name VARCHAR(200);
+/* alter *//* 
+alter table bio_table add column   md_name VARCHAR(200); */
 
 /* Demography */
 CREATE TABLE demography_table (
@@ -339,6 +339,9 @@ CREATE TABLE edu_table (
 );
 
 
+alter table edu_table add column  manual_university  VARCHAR(100);
+alter table edu_table add column  manual_university_state VARCHAR(100);
+
 
 /* Bank Details */
 CREATE TABLE bank_details(
@@ -358,7 +361,7 @@ CREATE TABLE bank_details(
 
 
  
-
+ /*  */
 
  CREATE TABLE IF NOT EXISTS applicant_credentials(
 
@@ -451,6 +454,9 @@ CREATE TABLE loan_requests (
   CHECK (tenor BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+loan_requestsALTER TABLE loan_requests  MODIFY tenor TINYINT UNSIGNED NOT NULL DEFAULT 1;
+ALTER TABLE loan_requests
+DROP CONSTRAINT loan_requests_chk_1;
 
 /* sponsor identification */
 
@@ -721,19 +727,19 @@ CREATE TABLE add_university(
       
       add_university_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
       university_name VARCHAR(200) NOT NULL,
-      state_of_location VARCHAR(200) NOT NULL,
-      local_government VARCHAR(200) NOT NULL,
-      foreign_or_local VARCHAR(200) NOT NULL,
-        institutionCategory VARCHAR(200) NOT NULL,
-        phone_number VARCHAR(200) NOT NULL,
-        email VARCHAR(200) NOT NULL,
-        website VARCHAR(200) NOT NULL,
-        ins_address VARCHAR(200) NOT NULL,
-        accreditation VARCHAR(200) NOT NULL,
-        courses_offered TEXT NOT NULL,
-        about_institution TEXT NOT NULL,
+      state_of_location VARCHAR(200) ,
+      local_government VARCHAR(200) ,
+      foreign_or_local VARCHAR(200) ,
+        institutionCategory VARCHAR(200) ,
+        phone_number VARCHAR(200) ,
+        email VARCHAR(200) ,
+        website VARCHAR(200) ,
+        ins_address VARCHAR(200) ,
+        accreditation VARCHAR(200) ,
+        courses_offered TEXT ,
+        about_institution TEXT ,
         other_institution TEXT,
-      token VARCHAR(200) NOT NULL,
+      token VARCHAR(200) ,
       createdAtTime VARCHAR(100),
       createdAtDate VARCHAR(100)
       
@@ -769,6 +775,20 @@ CREATE TABLE application_type(
     ip_address VARCHAR(45),
     visit_date  VARCHAR(45)
   );
+
+/* new */
+
+CREATE TABLE uploaded_files (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  file_token VARCHAR(255) NOT NULL,
+  file_name VARCHAR(255) NOT NULL,
+  instructions TEXT NOT NULL,
+  loan_category VARCHAR(255) NOT NULL,
+  action VARCHAR(255) NOT NULL,
+  file_path VARCHAR(500) NOT NULL,
+  uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  user_token VARCHAR(255) DEFAULT NULL
+);
 
 
 /* 

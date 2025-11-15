@@ -47,6 +47,12 @@ const UpdateBio = require("../app/applicants/SignUp/UpdateCredentials/UpdateBio"
 const Check_if_all_inputs_are_set = require("../app/applicants/SignUp/Check_if_all_inputs_are_set")
 const {Check_if_fill_all_before_apply} = require("../app/applicants/SignUp/applyloan/Check_if_fill_all_before_apply")
 const Check_If_all_files_are_provided = require("../app/applicants/SignUp/Check_If_all_files_are_provided")
+const HandleDoc_uplaod_Settings = require("../handleFile/HandleDoc_uplaod_Settings")
+const {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile} = require("../app/dashbord/settings/UploadDocSettings")
+
+
+
+
 
  
 // loan section
@@ -58,6 +64,8 @@ const updateemploymentDetails = require("../app/applicants/SignUp/loan/update/up
 const updatesalaryBankDetails = require("../app/applicants/SignUp/loan/update/updatesalaryBankDetails")
 const updatePersonelReference = require("../app/applicants/SignUp/loan/update/updatePersonelReference")
 const updateGuarantorDetails  = require("../app/applicants/SignUp/loan/update/updateGuarantorDetails")
+
+
 
 
 
@@ -146,8 +154,29 @@ router.get("/get_mssg_notfier/:receiver_token",GetMssgNotfier)
 router.put("/acknowledgment",Acknowledgment).get("/acknowledgment/:user_token",GetAcknowledgment)
 // UploadPic 
 router.put("/upload_picture",HandlePicture.single('file'),UploadPic)
-// CheckifAllinputFilled
+// UploadedFilesGet
+router.get("/get_uploaded_files_settings",UploadedFilesGet)
+//DeleteUploadedFile
+router.delete("/delete_uploaded_file/:file_token",DeleteUploadedFile)
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
 // router.get("/check_if_all_inputs_fill/:user_token",CheckifAllinputFilled)
+
 // SetLoan
 router.post("/set_loan",SetLoan)
 // AddBank
@@ -177,7 +206,24 @@ router.get("/Check_if_all_inputs_are_set/:user_token/:section_list_name",Check_i
 router.put("/Check_if_fill_all_before_apply",Check_if_fill_all_before_apply)
 // Check_If_all_files_are_provided
 router.get("/check_If_all_files_are_provided/:user_token/:loan_category",Check_If_all_files_are_provided)
+// get_uploaded_files_settings
+router.post("/upload_file_sett",HandleDoc_uplaod_Settings.single('file'),UploadDocSettings)
+
+
+
+ 
+
+
+
+
+
 // loan section
+
+
+
+
+
+
 
 
 // updateloanRequest

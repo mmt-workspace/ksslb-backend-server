@@ -141,7 +141,7 @@ GetUniversities = async (req, res) => {
   sql = "SELECT * FROM add_university;";
 
       }else{
-          sql = "SELECT university_name FROM add_university;";
+          sql = "SELECT university_name,state_of_location FROM add_university;";
       }
    
 
