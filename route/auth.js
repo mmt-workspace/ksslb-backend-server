@@ -175,8 +175,6 @@ router.delete("/delete_uploaded_file/:file_token",DeleteUploadedFile)
 
 
 
-// router.get("/check_if_all_inputs_fill/:user_token",CheckifAllinputFilled)
-
 // SetLoan
 router.post("/set_loan",SetLoan)
 // AddBank
