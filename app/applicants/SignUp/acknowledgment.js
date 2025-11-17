@@ -32,13 +32,13 @@ const CheckifAllinputFilled = (user_token) => {
       } 
 
       const sql1 = "SELECT  loan_amount,tenor,net_monthly_income,loan_category FROM loan_requests WHERE token = ?;"
-      const sql2 = "SELECT first_name,surname,date_of_birth,gender,marital_status,phone_no_1,phone_no_2,email,number_of_dependants,mother_maiden_name,bvn,nin_number,tin_number,billing_address FROM sponsorIdentification WHERE token = ?;"
-      const sql3 = "SELECT first_name,surname,office_address,phone_no_1,phone_no_2,email FROM spouse_details WHERE token = ?;"
+      const sql2 = "SELECT first_name,surname,date_of_birth,gender,marital_status,phone_no_1,email,number_of_dependants,mother_maiden_name,bvn,nin_number,billing_address FROM sponsorIdentification WHERE token = ?;"
+      const sql3 = "SELECT first_name,surname,office_address,phone_no_1,email FROM spouse_details WHERE token = ?;"
       const sql4 = "SELECT  residential_address,residential_status,years_in_apartment,nearest_landmark,profession,profession_type,position FROM residentialAddress WHERE token = ?;"
       const sql5 = "SELECT  employer_name,employer_address,year_of_confirmation,gross_annual_income,psn_ippis,year_of_retirement,net_monthly_income,grade_level,salary_payment_date,employee_id,qualification FROM employment_details WHERE token = ?;"
       const sql6 = "SELECT account_name,bank,account_number,account_type FROM salary_bank_details WHERE token = ?;"
-      const sql7 = "SELECT first_ref_first_name,first_ref_surname,first_ref_relationship,first_ref_address,first_ref_phone_no_1,first_ref_phone_no_2,first_ref_email,second_ref_first_name,second_ref_surname,second_ref_relationship,second_ref_address,second_ref_phone_no_1,second_ref_phone_no_2,second_ref_email   FROM personal_references WHERE token = ?;"
-      const sql8 = "SELECT first_name,surname,date_of_birth,gender,phone_no_1,phone_no_2,marital_status,email,psn_no,mother_maiden_name,account_name,account_number,bvn,nin_number,bank_name,tin_number,home_address,office_address FROM guarantor_details WHERE token = ?;"
+      const sql7 = "SELECT first_ref_first_name,first_ref_surname,first_ref_relationship,first_ref_address,first_ref_phone_no_1,first_ref_email,second_ref_first_name,second_ref_surname,second_ref_relationship,second_ref_address,second_ref_phone_no_1,second_ref_email   FROM personal_references WHERE token = ?;"
+      const sql8 = "SELECT first_name,surname,date_of_birth,gender,phone_no_1,marital_status,email,psn_no,mother_maiden_name,account_name,account_number,bvn,nin_number,bank_name,home_address,office_address FROM guarantor_details WHERE token = ?;"
 
       db.query(sql1, [user_token], (err, result1) => {
         if (err) return reject(err);
@@ -99,8 +99,8 @@ const CheckifAllinputFilled = (user_token) => {
                            residentialAddress: result4 && result4[0] ? result4[0] : null,
                            employment_details: result5 && result5[0] ? result5[0] : null,
                            salary_bank_details: result6 && result6[0] ? result6[0] : null,
-                            personal_references: result7 && result7[0] ? result7[0] : null,
-                       guarantor_details: result8 && result8[0] ? result8[0] : null
+                           personal_references: result7 && result7[0] ? result7[0] : null,
+                          guarantor_details: result8 && result8[0] ? result8[0] : null
                         }
                       });
                     });

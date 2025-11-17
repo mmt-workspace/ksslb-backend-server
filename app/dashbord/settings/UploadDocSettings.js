@@ -148,4 +148,79 @@ fs.unlink(filePath, (fsErr) => {
 
 
 
-module.exports = {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile};
+
+ DownloadUploadFIle = (req, res) => {
+
+ const { filename,file_token } = req.params;
+
+   // const token = req.query.token;
+
+  /* if (!token) {
+    return res.status(401).json({ textStatus: "Unauthorized: Missing token" });
+  } */
+
+
+  if (!filename) {
+    return res.status(400).json({
+      status: false,
+      textStatus: "Filename is required",
+    });
+  }
+
+  // Build full path safely
+  const filePath = path.resolve(__dirname, "../../../assets/uploads", filename);
+
+    const sql = "SELECT file_name FROM uploaded_files WHERE file_token = ?; "
+
+
+  // Check if exists
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({
+      status: false,
+      textStatus: "File not found",
+    });
+  }
+
+  db.query(sql,[file_token],(err,result) =>{
+
+          if(err) console.log(err)
+
+            if(result.length > 0){
+
+              const extension = filename.split('.').pop();
+
+                // Download the file
+  return res.download(filePath, result[0].file_name+"."+extension, (err) => {
+    if (err) {
+      console.error("Download error:", err);
+      return res.status(500).json({
+        status: false,
+        textStatus: "Error downloading file",
+      });
+    }
+  });
+                   
+            } else{
+
+                return res.status(404).json({
+                 status: false,
+                    textStatus: "Fetch error",
+                  });
+            }
+
+           
+  })
+
+
+
+
+
+
+}
+
+
+
+
+
+
+module.exports = {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile,DownloadUploadFIle};

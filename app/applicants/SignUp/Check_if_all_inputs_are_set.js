@@ -7,9 +7,9 @@ const query = promisify(db.query).bind(db);
 const SQLS = {
   loanrequestComplete: "SELECT loan_amount,tenor,net_monthly_income,loan_category FROM loan_requests WHERE token = ?;",
   sponsorIdentificationComplete:
-    "SELECT first_name,surname,date_of_birth,gender,marital_status,phone_no_1,phone_no_2,email,number_of_dependants,mother_maiden_name,bvn,nin_number,tin_number,billing_address FROM sponsorIdentification WHERE token = ?;",
+    "SELECT first_name,surname,date_of_birth,gender,marital_status,phone_no_1,email,number_of_dependants,mother_maiden_name,bvn,nin_number,billing_address FROM sponsorIdentification WHERE token = ?;",
   spouse_detailsComplete:
-    "SELECT first_name,surname,office_address,phone_no_1,phone_no_2,email FROM spouse_details WHERE token = ?;",
+    "SELECT first_name,surname,office_address,phone_no_1,email FROM spouse_details WHERE token = ?;",
   residentialAddressComplete:
     "SELECT residential_address,residential_status,years_in_apartment,nearest_landmark,profession,profession_type,position FROM residentialAddress WHERE token = ?;",
   employment_detailsComplete:
@@ -17,9 +17,9 @@ const SQLS = {
   salary_bank_detailsComplete:
     "SELECT account_name,bank,account_number,account_type FROM salary_bank_details WHERE token = ?;",
   personal_referencesComplete:
-    "SELECT first_ref_first_name,first_ref_surname,first_ref_relationship,first_ref_address,first_ref_phone_no_1,first_ref_phone_no_2,first_ref_email,second_ref_first_name,second_ref_surname,second_ref_relationship,second_ref_address,second_ref_phone_no_1,second_ref_phone_no_2,second_ref_email FROM personal_references WHERE token = ?;",
+    "SELECT first_ref_first_name,first_ref_surname,first_ref_relationship,first_ref_address,first_ref_phone_no_1,first_ref_email,second_ref_first_name,second_ref_surname,second_ref_relationship,second_ref_address,second_ref_phone_no_1,second_ref_email FROM personal_references WHERE token = ?;",
   guarantor_detailsComplete:
-    "SELECT first_name,surname,date_of_birth,gender,phone_no_1,phone_no_2,marital_status,email,psn_no,mother_maiden_name,account_name,account_number,bvn,nin_number,bank_name,tin_number,home_address,office_address FROM guarantor_details WHERE token = ?;"
+    "SELECT first_name,surname,date_of_birth,gender,phone_no_1,marital_status,email,psn_no,mother_maiden_name,account_name,account_number,bvn,nin_number,bank_name,home_address,office_address FROM guarantor_details WHERE token = ?;"
 };
 
 const rowIsComplete = (rows) => {

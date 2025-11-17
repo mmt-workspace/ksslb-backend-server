@@ -48,8 +48,8 @@ const Check_if_all_inputs_are_set = require("../app/applicants/SignUp/Check_if_a
 const {Check_if_fill_all_before_apply} = require("../app/applicants/SignUp/applyloan/Check_if_fill_all_before_apply")
 const Check_If_all_files_are_provided = require("../app/applicants/SignUp/Check_If_all_files_are_provided")
 const HandleDoc_uplaod_Settings = require("../handleFile/HandleDoc_uplaod_Settings")
-const {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile} = require("../app/dashbord/settings/UploadDocSettings")
-
+const {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile,DownloadUploadFIle} = require("../app/dashbord/settings/UploadDocSettings")
+const {Count_All_applicants} = require("../app/dashbord/counts/Count_All_applicants")
 
 
 
@@ -158,8 +158,10 @@ router.put("/upload_picture",HandlePicture.single('file'),UploadPic)
 router.get("/get_uploaded_files_settings",UploadedFilesGet)
 //DeleteUploadedFile
 router.delete("/delete_uploaded_file/:file_token",DeleteUploadedFile)
-
-
+// DownloadUploadFIle
+router.get("/get_downlaod_for_loan_upload/:filename/:file_token",DownloadUploadFIle)
+// Count_All_applicants 
+router.get("/count_all_applicants",Count_All_applicants)
 
 
 

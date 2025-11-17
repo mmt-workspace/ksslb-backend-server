@@ -76,7 +76,7 @@ app.use("/get_photo/",express.static(path.join(__dirname,"assets/profile")))
 // 
 app.use("/uploads", express.static(path.join(__dirname, "assets/uploads")));
 
-
+  
 
 app.use(express.static(path.join(__dirname, 'build')));
 
