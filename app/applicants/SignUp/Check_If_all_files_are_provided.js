@@ -17,7 +17,7 @@ Check_If_all_files_are_provided = (req,res)=>{
 
    //   console.log(user_token,loan_category)
 
-     const sqlApplicant = "SELECT * FROM applicant_doc WHERE user_token = ?;"
+     const sqlApplicant = "SELECT * FROM applicant_doc WHERE user_token = ? ;"
      const sqlDoc = "SELECT * FROM upload_doc WHERE loan_category = ?;"
 
 
@@ -42,7 +42,7 @@ Check_If_all_files_are_provided = (req,res)=>{
                          const uploadedDocs = result.length
 
                               
-                            if(requiredDocs === uploadedDocs){
+                            if(uploadedDocs >= requiredDocs){
 
                                   res.send(
                                     {
