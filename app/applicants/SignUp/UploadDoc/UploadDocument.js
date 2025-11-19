@@ -109,9 +109,9 @@ const GetUploadDocumentByUserToken = (req, res) => {
 
     const { user_token,qualification_type,ref_doc_token } = req.params;
 
-    const sql = `SELECT * FROM applicant_doc WHERE user_token = ? AND qualification_type = ? OR qualification_type = ? AND ref_doc_token = ?;`;
+    const sql = `SELECT * FROM applicant_doc WHERE user_token = ? AND ref_doc_token = ? AND qualification_type = ? OR qualification_type = ?;`;
 
-    db.query(sql, [user_token,qualification_type,"both",ref_doc_token], (err, result) => {
+    db.query(sql, [user_token,ref_doc_token,qualification_type,"both"], (err, result) => {
 
         if (err) {
             console.log(err);
