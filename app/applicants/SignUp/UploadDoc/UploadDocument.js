@@ -105,18 +105,18 @@ UploadDocument = (req,res)=>{
 }
  
 const GetUploadDocumentByUserToken = (req, res) => {
-
+  
 
     const { user_token,qualification_type,ref_doc_token } = req.params;
 
    
      const sql = `SELECT * FROM applicant_doc WHERE user_token = ? AND ref_doc_token = ? AND qualification_type = ?;`;
-
+  
 
 
     db.query(sql, [user_token,ref_doc_token,qualification_type], (err, result) => {
 
-           console.log(result)
+          // console.log(result)
         if (err) {
             console.log(err);
             return res.status(500).json({ message: "Database error", error: err });
@@ -130,10 +130,10 @@ const GetUploadDocumentByUserToken = (req, res) => {
                     console.log(err);
                     return res.status(500).json({ message: "Database error", error: err });
 
-                }
+                }  
 
                 res.send(result);
-                 console.log(result);
+                 //console.log(result);
 
             });
              return
