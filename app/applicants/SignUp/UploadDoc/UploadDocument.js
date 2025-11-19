@@ -95,7 +95,7 @@ UploadDocument = (req,res)=>{
             return res.status(500).json({ message: "Database error", error: err });
         }
 
-        res.send({
+        res.send({ 
              textStatus: "File uploaded successfully",
              status: true
         })
