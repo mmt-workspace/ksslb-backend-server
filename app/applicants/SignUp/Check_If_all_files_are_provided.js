@@ -41,6 +41,8 @@ Check_If_all_files_are_provided = (req,res)=>{
      
                          const uploadedDocs = result.length
 
+                            console.log("uploadedDocs", uploadedDocs)
+                            console.log("requiredDocs", requiredDocs)
                               
                             if(uploadedDocs >= requiredDocs){
 
