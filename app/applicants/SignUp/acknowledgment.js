@@ -160,7 +160,7 @@ Acknowledgment =  (req, res) => {
 
 
     const { mssg, user_token,loan_category } = req.body
-
+         console.log(loan_category)
     if (!mssg || !user_token) {
         return res.sendStatus(400)
     }
