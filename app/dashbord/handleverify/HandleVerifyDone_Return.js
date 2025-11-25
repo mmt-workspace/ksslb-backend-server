@@ -97,7 +97,7 @@ HandleVerifyDone_Return = (req,res)=>{
              db.query(sqlAccepted,[verify_status,user_token],(err,result)=>{
 
                   if(err) console.log(err)
-   
+    
              })
 
            }

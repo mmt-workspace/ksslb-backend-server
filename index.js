@@ -90,7 +90,14 @@ app.get('*', (req, res) => {
 httpServer.listen(port, () => console.log(`Server is running on port ${port}!`))
 
 
- db.connect((err)=>{
-    if(err) return console.log(err)
-    console.log('DataBase Connected')
-}) 
+// DB Connection Test
+db.query('SELECT 1', (err, results) => {
+
+    if (err) {
+        console.error('Database connection failed:', err);
+    } else {
+        console.log('Database is Connected');
+    }
+
+
+});
