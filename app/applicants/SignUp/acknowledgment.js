@@ -6,7 +6,7 @@ const validator = require("validator")
 
 
 
-const CheckifAllinputFilled = (user_token) => {
+const CheckifAllinputFilled = (user_token,loan_category) => {
 
 
   return new Promise((resolve, reject) => {
@@ -80,21 +80,20 @@ const CheckifAllinputFilled = (user_token) => {
                       const personal_referencesComplete = rowIsComplete(result7);
                        const guarantor_detailsComplete = rowIsComplete(result8);
 
-                      return resolve({
-                        status: true,
-                        details: {
-                          loanrequestComplete,
-                          sponsorIdentificationComplete,
-                          spouse_detailsComplete,
-                          residentialAddressComplete,
-                          employment_detailsComplete,
-                          salary_bank_detailsComplete,
-                           personal_referencesComplete,
-                            guarantor_detailsComplete
-                        },
-                        rows: {
+                       let details , rows;
+
+                        if(loan_category === "studentloan"){
+                            details = {
+                              loanrequestComplete,
+                              residentialAddressComplete,
+                              employment_detailsComplete,
+                              salary_bank_detailsComplete,
+                               personal_referencesComplete,
+                                guarantor_detailsComplete
+                            }
+
+                            rows  = {
                            loanrequest: result1 && result1[0] ? result1[0] : null,
-                           sponsorIdentification: result2 && result2[0] ? result2[0] : null,
                            spouse_details: result3 && result3[0] ? result3[0] : null,
                            residentialAddress: result4 && result4[0] ? result4[0] : null,
                            employment_details: result5 && result5[0] ? result5[0] : null,
@@ -102,6 +101,40 @@ const CheckifAllinputFilled = (user_token) => {
                            personal_references: result7 && result7[0] ? result7[0] : null,
                           guarantor_details: result8 && result8[0] ? result8[0] : null
                         }
+
+                        }else if(loan_category === "thirdparty"){
+                            details = {
+                              loanrequestComplete,
+                              sponsorIdentificationComplete,
+                              spouse_detailsComplete,
+                              residentialAddressComplete,
+                              employment_detailsComplete,
+                              salary_bank_detailsComplete,
+                               personal_referencesComplete,
+                                guarantor_detailsComplete
+                            }
+
+
+                            rows  = {
+                           loanrequest: result1 && result1[0] ? result1[0] : null,
+                           sponsorIdentification: result2 && result2[0] ? result2[0] : null,
+                           spouse_details: result3 && result3[0] ? result3[0] : null,
+                           residentialAddress: result4 && result4[0] ? result4[0] : null,
+                           employment_details: result5 && result5[0] ? result5[0] : null,
+                           salary_bank_details: result6 && result6[0] ? result6[0] : null,
+                           personal_references: result7 && result7[0] ? result7[0] : null,
+                           guarantor_details: result8 && result8[0] ? result8[0] : null
+                        }
+
+
+                        }
+
+
+
+                      return resolve({
+                        status: true,
+                           details,
+                           rows
                       });
                     });
 
@@ -126,7 +159,7 @@ const CheckifAllinputFilled = (user_token) => {
 Acknowledgment =  (req, res) => {
 
 
-    const { mssg, user_token } = req.body
+    const { mssg, user_token,loan_category } = req.body
 
     if (!mssg || !user_token) {
         return res.sendStatus(400)
@@ -135,18 +168,18 @@ Acknowledgment =  (req, res) => {
     (async ()=>{
 
       try {
-          const validation = await CheckifAllinputFilled(user_token)
+          const validation = await CheckifAllinputFilled(user_token,loan_category)
           
           if (!validation.status || Object.values(validation.details).includes(false)) {
             // Log the first incomplete section (if any) without using break inside a callback
             const incompleteKey = Object.keys(validation.details).find(key => validation.details[key] === false);
             
-            if (incompleteKey) {
+           /*  if (incompleteKey) {
 
               console.log(validation.details[incompleteKey]);
               console.log(incompleteKey)
 
-            }
+            } */
             
             return res.send({ 
 
