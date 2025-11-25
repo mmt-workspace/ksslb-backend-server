@@ -60,7 +60,7 @@ Check_If_all_files_are_provided = (req,res)=>{
                                   res.send(
                                     {
                                         status:false,
-                                        textStatus:"Please upload all required documents"
+                                        textStatus:"Please upload all required documents " + "uploadedDocs" + uploadedDocs + "and" + " requiredDocs " + requiredDocs
 
                                     }
                                   )
