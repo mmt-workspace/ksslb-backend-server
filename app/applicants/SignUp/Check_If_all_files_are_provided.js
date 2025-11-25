@@ -44,7 +44,7 @@ Check_If_all_files_are_provided = (req,res)=>{
                             console.log("uploadedDocs", uploadedDocs)
                             console.log("requiredDocs", requiredDocs)
                               
-                            if(uploadedDocs >= requiredDocs){
+                            if(uploadedDocs >= requiredDocs || uploadedDocs == requiredDocs ){
 
                                   res.send(
                                     {
