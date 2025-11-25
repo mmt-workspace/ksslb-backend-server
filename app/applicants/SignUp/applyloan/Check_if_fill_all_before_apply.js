@@ -30,7 +30,7 @@ const rowIsComplete = (rows) => {
   return Object.values(rows[0]).every(v => v !== null && v !== undefined && String(v).trim() !== "");
 };
 
-const CheckifAllinputFilled = async (user_token) => {
+const CheckifAllinputFilled = async (user_token, loan_category) => {
   try {
     // Basic validation
     if (typeof user_token !== 'string' || validator.isEmpty(user_token)) {
@@ -64,30 +64,38 @@ const CheckifAllinputFilled = async (user_token) => {
       queryAsync(SQL_QUERIES.guarantorDetails, [user_token])
     ]);
 
-    const details = {
-      loanrequestComplete: rowIsComplete(result1),
-      sponsorIdentificationComplete: rowIsComplete(result2),
-      spouse_detailsComplete: rowIsComplete(result3),
-      residentialAddressComplete: rowIsComplete(result4),
-      employment_detailsComplete: rowIsComplete(result5),
-      salary_bank_detailsComplete: rowIsComplete(result6),
-      personal_referencesComplete: rowIsComplete(result7),
-      guarantor_detailsComplete: rowIsComplete(result8)
-    };
+
+    let details = {};
+    let rows = {};
+
+    if (loan_category === "studentloan") {
+      details = {
+        loanrequestComplete: rowIsComplete(result1),
+        residentialAddressComplete: rowIsComplete(result4),
+        employment_detailsComplete: rowIsComplete(result5),
+        salary_bank_detailsComplete: rowIsComplete(result6),
+        personal_referencesComplete: rowIsComplete(result7),
+        guarantor_detailsComplete: rowIsComplete(result8)
+      };
+    } else if (loan_category === "thirdparty") {
+      details = {
+        loanrequestComplete: rowIsComplete(result1),
+        sponsorIdentificationComplete: rowIsComplete(result2),
+        spouse_detailsComplete: rowIsComplete(result3),
+        residentialAddressComplete: rowIsComplete(result4),
+        employment_detailsComplete: rowIsComplete(result5),
+        salary_bank_detailsComplete: rowIsComplete(result6),
+        personal_referencesComplete: rowIsComplete(result7),
+        guarantor_detailsComplete: rowIsComplete(result8)
+      };
+    } 
+       
+   
 
     return {
       status: true,
       details,
-      rows: {
-        loanrequest: result1[0] || null,
-        sponsorIdentification: result2[0] || null,
-        spouse_details: result3[0] || null,
-        residentialAddress: result4[0] || null,
-        employment_details: result5[0] || null,
-        salary_bank_details: result6[0] || null,
-        personal_references: result7[0] || null,
-        guarantor_details: result8[0] || null
-      }
+      rows
     };
   } catch (error) {
     throw error;
@@ -97,7 +105,7 @@ const CheckifAllinputFilled = async (user_token) => {
 const Check_if_fill_all_before_apply = async (req, res) => {
 
 
-  const { user_token } = req.body;
+  const { user_token,loan_category } = req.body;
 
   if (!user_token) {
     return res.status(400).json({ error: "User token is required" });
@@ -113,7 +121,7 @@ const Check_if_fill_all_before_apply = async (req, res) => {
 
                 
           try {
-          const validation = await CheckifAllinputFilled(user_token);
+          const validation = await CheckifAllinputFilled(user_token,loan_category);
 
 
 
