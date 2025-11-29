@@ -222,42 +222,11 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
           }
 
-
-
-
-
-          
+        
     }
 
-   // 
 
-    
-    /* 
-CREATE TABLE application_type(
-
-      application_type_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-      application_type VARCHAR(200) NOT NULL,
-      token VARCHAR(200) NOT NULL,
-      createdAtTime VARCHAR(100),
-      createdAtDate VARCHAR(100)
-
-);
-
-  CREATE TABLE apply_loan(
-
-    apply_loan_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    user_token VARCHAR(200) NOT NULL,
-    loan_applied VARCHAR(200) NOT NULL,
-    loan_type VARCHAR(200) NOT NULL,
-    loan_card_token VARCHAR(200) NOT NULL,
-    token VARCHAR(200) NOT NULL,
-    apply_status VARCHAR(100),
-    award_status VARCHAR(100),
-    createdAtTime VARCHAR(100),
-    createdAtDate VARCHAR(100)
-);
-
- */
+  
     
     db.query(sql,(err,result)=>{
         if(err) return console.log(err.message)
@@ -266,11 +235,105 @@ CREATE TABLE application_type(
     })
 
 
+
+
+
     
+}
+
+
+
+
+
+
+Count_ApplicantBio_For_Qualification_type = (req,res)=>{
+
+
+       
+
+    // verified sql
+    const  Verifiedsql = `SELECT 
+              bt.*, 
+              su.verify_status,
+              et.*,
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'verified' AND loan.apply_status = 'applied';`
+
+
+  const   NotVerifiedsql = `SELECT 
+              bt.*, 
+              su.verify_status,
+              et.*,
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'Not Verified' AND loan.apply_status = 'applied';`
+
+
+
+
+               // sql query function
+            
+        db.query(NotVerifiedsql,(err,result1)=>{
+
+
+                if(err) console.log(err.message)
+
+
+
+          db.query(Verifiedsql,(err,result2)=>{
+
+
+                if(err) console.log(err.message)
+
+
+                    const NotVerified = result1.length
+                    const Verified = result2.length
+
+                    res.send({
+                        NotVerified,
+                        Verified
+                    })
+
+
+
+        })
+
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
 
 
 
-module.exports = GetApplicantBio_For_Qualification_type
+module.exports = {GetApplicantBio_For_Qualification_type,Count_ApplicantBio_For_Qualification_type}

@@ -21,7 +21,7 @@ const HandleDoc_uplaod = require("../handleFile/HandleDoc_uplaod")
 const removeScholarship = require("../app/dashbord/Scholarship/Remove_Scholarship")
 const ApplyScholarship = require("../app/applicants/SignUp/apply_scholarship/ApplyScholarship")
 const {GetScholarshipAppliedList,GetScholarshipAppliedList_for_my_app} = require("../app/applicants/SignUp/apply_scholarship/GetScholarshipAppliedList")
-const GetApplicantBio_For_Qualification_type = require("../app/applicants/GetData/GetApplicantBio_For_Qualification_type")
+const {GetApplicantBio_For_Qualification_type,Count_ApplicantBio_For_Qualification_type} = require("../app/applicants/GetData/GetApplicantBio_For_Qualification_type")
 const {HandleVerify}  = require("../app/dashbord/handleverify/HandleVerify")
 const HandleVerifyDone_Return = require("../app/dashbord/handleverify/HandleVerifyDone_Return")
 const HandleSelect = require("../app/dashbord/handleverify/HandleSelect")
@@ -113,6 +113,8 @@ router.get("/get_cholarship_applied_list/:user_token/:token",GetScholarshipAppli
 router.get("/get_cholarship_applied_list_for_my_app/:user_token",GetScholarshipAppliedList_for_my_app)
 // GetApplicantBio_For_Undergraduate
 router.get("/get_applicantBio_for_qualification_type/:which/:type",GetApplicantBio_For_Qualification_type)
+// Count_ApplicantBio_For_Qualification_type
+router.get("/count_applicantBio_for_Qualification_type",Count_ApplicantBio_For_Qualification_type)
 //HandleVerify
 router.put("/handle_verify",HandleVerify)  
 // HandleVerifyDone_Return

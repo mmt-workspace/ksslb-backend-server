@@ -291,7 +291,6 @@ CREATE TABLE social_media_table(
     facebook_handle VARCHAR(100),
     twitter_handle VARCHAR(100),
     instergram_handle VARCHAR(100),
-    linkedin_handle VARCHAR(100),
     user_token VARCHAR(200) NOT NULL,
     valuePer int DEFAULT 0,
     signupDate DATETIME DEFAULT CURRENT_TIMESTAMP ,
@@ -392,6 +391,9 @@ CREATE TABLE applicant_doc(
     createdAtDate VARCHAR(100)
 );
 
+/* new 28  Nov */
+alter table applicant_doc add column reupload_status VARCHAR(200) DEFAULT "new";
+
 /* Reject Message */
 CREATE TABLE IF NOT EXISTS rejectmsg (
 
@@ -442,10 +444,8 @@ CREATE TABLE loan_requests (
 
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   loan_amount DECIMAL(18,2) NOT NULL DEFAULT 0.00,
-  loan_amount_words VARCHAR(255),
   tenor TINYINT UNSIGNED NOT NULL DEFAULT 1,
   net_monthly_income DECIMAL(18,2) NOT NULL DEFAULT 0.00,
-  net_monthly_income_words VARCHAR(255),
   loan_category VARCHAR(100),
   token VARCHAR(200) NOT NULL,
     valuePer int DEFAULT 0,
@@ -453,6 +453,8 @@ CREATE TABLE loan_requests (
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CHECK (tenor BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 
 loan_requestsALTER TABLE loan_requests  MODIFY tenor TINYINT UNSIGNED NOT NULL DEFAULT 1;
 ALTER TABLE loan_requests
@@ -552,7 +554,6 @@ CREATE TABLE salary_bank_details (
   bank VARCHAR(150),
   account_number VARCHAR(20),
   account_type VARCHAR(50),
-  signature_date VARCHAR(50),
   token VARCHAR(200),
   valuePer  int DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

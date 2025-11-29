@@ -29,9 +29,10 @@ CheckDocument = (req,res,next)=>{
 
               if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
-              const sql = "UPDATE applicant_doc SET document_file_name = ?, upload_status = ? WHERE user_token = ? AND file_token = ?; "
+              const sql = "UPDATE applicant_doc SET document_file_name = ?, upload_status = ? , reupload_status = ? WHERE user_token = ? AND file_token = ?; "
               const checksql = "SELECT * FROM applicant_doc WHERE  user_token = ? AND file_token = ?;"
               const document_file_name = req.file.filename;
+              const reupload_status = "reuploaded"
 
               db.query(checksql,[user_token,file_token],(err,result)=>{
 
@@ -41,7 +42,7 @@ CheckDocument = (req,res,next)=>{
 
                        if(result.length > 0){
                            
-                             db.query(sql,[document_file_name,"done",user_token,file_token],(err,result)=>{
+                             db.query(sql,[document_file_name,"done",reupload_status,user_token,file_token],(err,result)=>{
 
                                                if(err) console.log(err.message)
 
