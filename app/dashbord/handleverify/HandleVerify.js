@@ -37,7 +37,7 @@ HandleVerify = (req,res)=>{
        const sql = "UPDATE applicant_doc SET verify_status = ?, rejectionReason = ? WHERE file_token = ?;"
        let verify_status 
 
-        if(type === "accept"){
+        if(type === "accepted"){
 
             verify_status = type
 

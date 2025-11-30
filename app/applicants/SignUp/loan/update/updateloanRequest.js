@@ -29,7 +29,7 @@ updateloanRequest = (req,res)=>{
                       
                          if(loanCategory === "studentloan"){
 
-                                changeTenor = 3
+                                changeTenor = 10
                          }
 
                           if(loanCategory === "thirdparty"){

@@ -51,7 +51,11 @@ HandleVerifyDone_Return = (req,res)=>{
 
              verify_status = type
 
-        }else if(type === "approved"){
+        }else if(type === "disqualified"){
+          
+              verify_status = type
+        }
+        else if(type === "approved"){
 
              verify_status = type
 

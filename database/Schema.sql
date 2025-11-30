@@ -256,6 +256,7 @@ CREATE TABLE scholarship_steps(
         mobileNumber VARCHAR(200) NOT NULL,
         gender VARCHAR(100) NOT NULL,
         marital_status VARCHAR(100) NOT NULL,
+        unread_status VARCHAR(100) DEFAULT "read",
         d_o_b VARCHAR(100) NOT NULL,
         resdential_type VARCHAR(100) NOT NULL,
         picture VARCHAR(200),
@@ -267,7 +268,7 @@ CREATE TABLE scholarship_steps(
 );
 
 /* alter *//* 
-alter table bio_table add column   md_name VARCHAR(200); */
+alter table bio_table add column   unread_status VARCHAR(200) DEFAULT "read"; */
 
 /* Demography */
 CREATE TABLE demography_table (
