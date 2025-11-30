@@ -268,7 +268,7 @@ Count_ApplicantBio_For_Qualification_type = (req,res)=>{
                su.verify_status = 'verified' AND loan.apply_status = 'applied';`
 
 
-  const   NotVerifiedsql = `SELECT 
+  const   returnedsql = `SELECT 
               bt.*, 
               su.verify_status,
               et.*,
@@ -281,14 +281,15 @@ Count_ApplicantBio_For_Qualification_type = (req,res)=>{
               edu_table et ON bt.user_token = et.user_token
           LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
               WHERE 
-               su.verify_status = 'Not Verified' AND loan.apply_status = 'applied';`
+               su.verify_status = 'returned' AND loan.apply_status = 'applied';`
+
 
 
 
 
                // sql query function
             
-        db.query(NotVerifiedsql,(err,result1)=>{
+        db.query(returnedsql,(err,result1)=>{
 
 
                 if(err) console.log(err.message)
@@ -301,11 +302,11 @@ Count_ApplicantBio_For_Qualification_type = (req,res)=>{
                 if(err) console.log(err.message)
 
 
-                    const NotVerified = result1.length
+                    const Returned = result1.length
                     const Verified = result2.length
 
                     res.send({
-                        NotVerified,
+                        Returned,
                         Verified
                     })
 
