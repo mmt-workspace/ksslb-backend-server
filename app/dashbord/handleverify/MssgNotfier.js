@@ -5,7 +5,7 @@ const SendMail = require("./../../../email/SendMail")
 
 // insert for notes
 
-MssgNotfier = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
+PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
 
 
 
@@ -177,4 +177,4 @@ GetMssgNotfier = (req,res)=> {
 
 
 
-module.exports = {MssgNotfier, GetMssgNotfier}
+module.exports = {MssgNotfier, GetMssgNotfier,PostMssgNote}

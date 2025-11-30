@@ -1,5 +1,5 @@
 const db = require('../../../database/db');
-
+const {PostMssgNote} = require('./MssgNotfier');
 
 
 
@@ -38,42 +38,61 @@ HandleVerifyDone_Return = (req,res)=>{
        const sqlApprove = "UPDATE loan_steps SET approval = ? WHERE  user_token = ?;"
        const sqlAccepted = "UPDATE loan_steps SET bank_review = ? WHERE  user_token = ?;"
 
-    const time  = new Date().toLocaleTimeString()
-    const date  = new Date().toLocaleDateString()
+       const time  = new Date().toLocaleTimeString()
+       const date  = new Date().toLocaleDateString()
+       let mssg_subject = ""
+        let mssg_body = ""
       
         let verify_status 
 
         if(type === "verified"){
 
-            verify_status = type
+              verify_status = type
+               mssg_subject = "Document Verified"
+               mssg_body = "Your document has been successfully verified."
 
         }else if(type === "returned"){
 
              verify_status = type
+                mssg_subject = "Document Returned"
+                mssg_body = "Your document has been returned. Please review and resubmit."
 
         }else if(type === "disqualified"){
-          
+
               verify_status = type
+               mssg_subject = "Application Disqualified"
+               mssg_body = "We regret to inform you that your application has been disqualified."
         }
         else if(type === "approved"){
 
              verify_status = type
+                mssg_subject = "Loan Approved"
+                mssg_body = "Congratulations! Your loan has been approved and is moving to the next stage."
 
         }else if(type === "returned_by_approver"){
 
              verify_status = type
+                    mssg_subject = "Loan Returned by Approver"
+                    mssg_body = "Your loan has been returned by the approver. Please review the feedback and take necessary actions."
+
         }else if(type === "accepted"){
 
              verify_status = type
+                    mssg_subject = "Loan Accepted"
+                    mssg_body = "Your loan offer has been accepted. We will proceed with the next steps."
         }else if(type === "rejected"){
 
              verify_status = type
+                    mssg_subject = "Loan Rejected"
+                    mssg_body = "We regret to inform you that your loan application has been rejected."
         }
         
 
       db.query(sql,[verify_status,verifier_token,user_token],(err,result)=>{
              
         if(err) console.log(err.message)
+
+           
 
            if(type === "verified"){
 
@@ -107,7 +126,7 @@ HandleVerifyDone_Return = (req,res)=>{
            }
 
            
-
+        PostMssgNote (verifier_token,user_token,mssg_subject,mssg_body)
         res.send(verify_status)
 
 
