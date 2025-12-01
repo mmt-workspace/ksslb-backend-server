@@ -62,7 +62,7 @@ HandleVerify = (req,res)=>{
 
             verify_status = type
              mssg_subject = verify_status
-             mssg_body = `Reason: ${rejectionReason},  Your document has been revoked.`
+             mssg_body = `Reason: ${rejectionReason},  Your document has been rejected.`
 
 
             UpdateApplicantDocStatus(file_token,verify_status)

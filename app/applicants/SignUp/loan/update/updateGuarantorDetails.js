@@ -52,7 +52,7 @@ updateGuarantorDetails = (req,res)=>{
                db.query(checksql,[account_number],(err,result)=>{
        
                     if(err) return console.log(err.message)
-               
+               /* 
                         if(result.length > 0){
                                  
                                  const usertoken  = result[0].token
@@ -74,7 +74,7 @@ updateGuarantorDetails = (req,res)=>{
 
 
                         } 
-
+ */
 
 
 

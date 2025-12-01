@@ -37,7 +37,7 @@ HandleVerifyDone_Return = (req,res)=>{
        const sqlloan_steps = "INSERT INTO loan_steps(verification,user_token,createdAtTime,createdAtDate) VALUES(?,?,?,?);"
        const sqlApprove = "UPDATE loan_steps SET approval = ? WHERE  user_token = ?;"
        const sqlAccepted = "UPDATE loan_steps SET bank_review = ? WHERE  user_token = ?;"
-
+       const sqlapplicant_doc = "SELECT * FROM applicant_doc WHERE user_token = ?;"
        const time  = new Date().toLocaleTimeString()
        const date  = new Date().toLocaleDateString()
        let mssg_subject = ""
@@ -96,11 +96,35 @@ HandleVerifyDone_Return = (req,res)=>{
 
            if(type === "verified"){
 
-             db.query(sqlloan_steps,[verify_status,user_token,time,date],(err,result)=>{
+               db.query(sqlapplicant_doc,[user_token],(err,result)=>{
 
-                  if(err) console.log(err)
+                             if(err) console.log(err)
+                             
+                              const check = result && result.length > 0 && result.every(doc => doc.verify_status === "Accepted");
+
+                              if(check){
+
+                                    db.query(sqlloan_steps,[verify_status,user_token,time,date],(err,result)=>{
+
+                                  if(err) console.log(err)
    
-             })
+                                      })
+
+                              }else{
+
+
+                                   res.send({
+                                         status: false,
+                                         textStatus:"Correct all documents First!"
+                                   })
+
+                                   return
+
+                              }
+                       
+               })
+
+            
 
            }
 
