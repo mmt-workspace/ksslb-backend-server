@@ -9,7 +9,7 @@ updateloanRequest = (req,res)=>{
         
         // update req.body in case later code reads from it
        
-              const { loanAmount,loanAmountWords,tenor,fieldName,netMonthlyIncome,netMonthlyIncomeWords,loanCategory,user_token} = req.body
+              const { loanAmount,tenor,fieldName,netMonthlyIncome,loanCategory,user_token} = req.body
 
                 const loanAmountClean = (data) => {
                         if (data === undefined || data === null) return 0.00;
@@ -40,9 +40,9 @@ updateloanRequest = (req,res)=>{
 
               const valuePer = 25
 
-              const sql = "UPDATE loan_requests SET loan_amount = ?,loan_amount_words = ?, tenor = ?,net_monthly_income = ? , net_monthly_income_words = ? ,  loan_category = ?, valuePer = ? WHERE token = ?;";
+              const sql = "UPDATE loan_requests SET loan_amount = ? = ?, tenor = ?,net_monthly_income = ?  ,  loan_category = ?, valuePer = ? WHERE token = ?;";
         
-              const list = [loanAmount ? loan_amount : 0.00,loanAmountWords,changeTenor ? changeTenor : 1,netMonthlyIncome ? net_monthly_income : 0.00,netMonthlyIncomeWords,loanCategory,valuePer,user_token]
+              const list = [loanAmount ? loan_amount : 0.00,changeTenor ? changeTenor : 1,netMonthlyIncome ? net_monthly_income : 0.00,loanCategory,valuePer,user_token]
             // Store hash in your password DB.
             db.query(sql,list,(err,result)=>{
         
