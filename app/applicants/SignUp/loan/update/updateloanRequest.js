@@ -40,7 +40,7 @@ updateloanRequest = (req,res)=>{
 
               const valuePer = 25
 
-              const sql = "UPDATE loan_requests SET loan_amount = ? = ?, tenor = ?,net_monthly_income = ?  ,  loan_category = ?, valuePer = ? WHERE token = ?;";
+              const sql = "UPDATE loan_requests SET loan_amount = ?, tenor = ?,net_monthly_income = ?  ,  loan_category = ?, valuePer = ? WHERE token = ?;";
         
               const list = [loanAmount ? loan_amount : 0.00,changeTenor ? changeTenor : 1,netMonthlyIncome ? net_monthly_income : 0.00,loanCategory,valuePer,user_token]
             // Store hash in your password DB.
