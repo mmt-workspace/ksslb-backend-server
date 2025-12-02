@@ -34,10 +34,8 @@ PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
              
                      if(err) return console.log(err.message)
              
-                     res.send({
-                         status:true,
-                         textStatus:"Message Sent"
-                     })
+                    
+                        console.log("Message Sent , from PostMssgNote")
              
              
                  })
@@ -45,10 +43,7 @@ PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
              }else{
 
 
-                     res.send({
-                         status:false,
-                         textStatus:"Invalid token"
-                     })
+                        console.log("Invalid token , from PostMssgNote")
 
              }
 

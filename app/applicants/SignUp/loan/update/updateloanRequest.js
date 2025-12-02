@@ -23,7 +23,29 @@ updateloanRequest = (req,res)=>{
                 const loan_amount = loanAmountClean(loanAmount)
                 const net_monthly_income = loanAmountClean(netMonthlyIncome)
                 let changeTenor  = tenor
+                const sqluser = "SELECT d_o_b  FROM bio_table WHERE token = ?;"
+                const currentYear = new Date().getFullYear();
 
+               /*  db.query(sqluser,[user_token],(err,result)=>{
+       
+                        if(err) return console.log(err.message)
+                       
+                        if(result.length > 0){
+
+                                const dob = result[0].d_o_b
+                                const birthYear = new Date(dob).getFullYear();
+                                const age = currentYear - birthYear;
+                                  console.log(age)
+                                if(age < 18){
+
+                                        changeTenor = 1
+                                }
+
+                        }
+
+                }) */
+                 
+        
 
                 if(fieldName === "loanCategory"){
                       

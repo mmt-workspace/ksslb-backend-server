@@ -74,8 +74,8 @@ HandleVerify = (req,res)=>{
 
               if(err) return console.log(err.message)
 
-               PostMssgNote(verifier_token,user_token,mssg_subject,mssg_body)
-              VerificationNotfication(email,verify_status,document_type_name,rejectionReason,result[0].mssg)
+                VerificationNotfication(email,verify_status,document_type_name,rejectionReason,result[0].mssg)
+                PostMssgNote(verifier_token,user_token,mssg_subject,mssg_body)
 
 
               })
