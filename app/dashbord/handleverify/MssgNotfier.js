@@ -76,7 +76,7 @@ MssgNotfier = (req,res)=> {
 
 
 
-    const {sender_token,receiver_token,mssg_subject,mssg_body} = req.body
+    const {sender_token,receiver_token,mssg_subject,mssg_body,contact_method} = req.body
 
     if(!sender_token || !receiver_token || !mssg_subject || !mssg_body){
         return res.sendStatus(400)
@@ -111,7 +111,8 @@ MssgNotfier = (req,res)=> {
              
                  })
                  // send mail to applicant
-                SendMail(result[0].email,mssg_body)
+                    if(contact_method === "email")   SendMail(result[0].email,mssg_body)
+            
                    
              }else{
 
