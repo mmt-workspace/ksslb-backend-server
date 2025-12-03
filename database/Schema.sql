@@ -645,6 +645,22 @@ CREATE TABLE guarantor_details (
     createdAtDate VARCHAR(100)
 );
 
+/* Credit Search */
+CREATE TABLE credit_search(
+
+      credit_search_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+      user_token VARCHAR(200) NOT NULL,
+      search_status VARCHAR(100) DEFAULT "not searched",
+       credit_file VARCHAR(200),
+       token VARCHAR(200) NOT NULL,
+       credit_comment TEXT,
+      createdAtTime VARCHAR(100),
+      createdAtDate VARCHAR(100)
+
+);
+
+
+
 /* Send mssg */
 
 CREATE TABLE send_mssg(
