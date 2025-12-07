@@ -50,7 +50,7 @@ const Check_If_all_files_are_provided = require("../app/applicants/SignUp/Check_
 const HandleDoc_uplaod_Settings = require("../handleFile/HandleDoc_uplaod_Settings")
 const {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile,DownloadUploadFIle} = require("../app/dashbord/settings/UploadDocSettings")
 const {Count_All_applicants} = require("../app/dashbord/counts/Count_All_applicants")
-const CreditSearch = require("../app/applicants/SignUp/CreditSearch")
+const {CreditSearch,GetCreditSearch} = require("../app/applicants/SignUp/CreditSearch")
 const HandleCreditSearchFile = require("../handleFile/HandleCreditSearchFile")
 
 
@@ -168,7 +168,8 @@ router.get("/get_downlaod_for_loan_upload/:filename/:file_token",DownloadUploadF
 router.get("/count_all_applicants",Count_All_applicants)
 // Credit search
 router.post("/credit_search",HandleCreditSearchFile.single('file'),CreditSearch)
-
+// GetCreditSearch
+router.get("/get_credit_search/:user_token",GetCreditSearch)
 
 
 

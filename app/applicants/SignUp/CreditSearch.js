@@ -13,42 +13,100 @@ CreditSearch = (req,res)=>{
 
 
 
-const {search_status,file,comments,user_tokens} = req.body
+const {search_status,comments,user_tokens} = req.body
 const token = TokensGenerator(10)
 
-/* CREATE TABLE credit_search(
-
-      credit_search_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-      user_token VARCHAR(200) NOT NULL,
-      search_status VARCHAR(100) DEFAULT "not searched",
-       credit_file VARCHAR(200),
-       token VARCHAR(200) NOT NULL,
-       credit_comment TEXT,
-      createdAtTime VARCHAR(100),
-      createdAtDate VARCHAR(100)
-
-);
- */
 
 
         const sql = "INSERT INTO credit_search(user_token,search_status,credit_file,token,credit_comment,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?);"
+        const updateSql = "UPDATE credit_search SET search_status = ?, credit_file = ?, credit_comment = ? WHERE user_token = ? AND token = ?;"
+           
+           
+        const file = req.file.filename
+        const checksql = "SELECT credit_search WHERE user_token = ?;"
 
 
-        db.query(sql,[user_tokens,search_status,file,token,comments,SetTimeFormat(),SetDateFomat()],(err,result)=>{
+        db.query(checksql,[user_tokens,token],(err,checkresult)=>{
+            
+            if(err) return console.log(err.message)
+
+            if(checkresult.length > 0){
+
+
+                db.query(updateSql,[search_status,file,comments,user_tokens],(err,updateresult)=>{
+            
+                    if(err) return console.log(err.message)
+
+                    return res.send({  
+                        status:true,
+                        textStatus:"Credit Search Updated"
+                    })  
+
+                   })
+
+                return
+
+
+            }else{
+
+
+                 db.query(sql,[user_tokens,search_status,file,token,comments,SetTimeFormat(),SetDateFomat()],(err,result)=>{
+            
+                   if(err) return console.log(err.message)
+
+
+
+
+                            res.send({  
+                                status:true,
+                                textStatus:"Credit Search Uploaded"
+                            })  
+
+                        })  
+
+
+            }
+            
+
+
+        })
+  
+
+       
+
+
+
+
+
+
+}
+
+
+
+
+
+
+GetCreditSearch = (req,res)=>{
+
+
+        const {user_token} = req.body
+
+        const sql = "SELECT * FROM credit_search WHERE user_token = ? ORDER BY credit_search_id DESC;"
+
+
+
+        db.query(sql,[user_token],(err,result)=>{
             
             if(err) return console.log(err.message)
 
 
 
 
-            res.send({  
-                status:true,
-                textStatus:"Credit Search Uploaded"
-            })  
+            res.send(result)  
+
+
 
         })  
-
-
 
 
 
@@ -59,4 +117,17 @@ const token = TokensGenerator(10)
 }
 
 
-module.exports = CreditSearch
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {CreditSearch,GetCreditSearch}
