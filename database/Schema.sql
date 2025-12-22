@@ -457,7 +457,7 @@ CREATE TABLE loan_requests (
   CHECK (tenor BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/* Loan requests Dec 20 2025 */
+/* Loan requests Dec 20 2025 done */
 alter table loan_requests add column program_type VARCHAR(200) DEFAULT "not selected";
 
 
@@ -697,7 +697,7 @@ CREATE TABLE acknowledgment (
 
 );
 
-/* inprinciple offer  continue on this offer section*/
+/* inprinciple offer  continue on this offer section, dec 20 25 done */
 CREATE TABLE inprinciple_offer (
 
      inprinciple_offer_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -719,7 +719,7 @@ CREATE TABLE inprinciple_offer (
       createdAtDate VARCHAR(100)
 );
 
-/* dec 20 25 */
+/* dec 20 25 done */
 alter table inprinciple_offer add column guarantor VARCHAR(200);
 alter table inprinciple_offer add column loan_category VARCHAR(200);
 alter table inprinciple_offer add column program_type VARCHAR(200);
@@ -773,6 +773,8 @@ CREATE TABLE upload_doc(
     about_institution: "",
     other_institution: ""
  */
+
+
 CREATE TABLE add_university(
       
       add_university_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -821,14 +823,17 @@ CREATE TABLE application_type(
 /* count visitor */
 
  CREATE TABLE IF NOT EXISTS visitors (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     ip_address VARCHAR(45),
     visit_date  VARCHAR(45)
+
   );
 
 /* new */
 
 CREATE TABLE uploaded_files (
+
   id INT AUTO_INCREMENT PRIMARY KEY,
   file_token VARCHAR(255) NOT NULL,
   file_name VARCHAR(255) NOT NULL,
@@ -838,6 +843,7 @@ CREATE TABLE uploaded_files (
   file_path VARCHAR(500) NOT NULL,
   uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   user_token VARCHAR(255) DEFAULT NULL
+  
 );
 
 
