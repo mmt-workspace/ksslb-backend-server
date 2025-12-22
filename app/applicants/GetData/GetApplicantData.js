@@ -30,7 +30,7 @@ GetApplicantData = (req, res) => {
     const sql2 = "SELECT * FROM demography_table WHERE user_token = ?;"
     const sql3 = "SELECT * FROM parent_table WHERE user_token = ?;"
     const sql4 = "SELECT * FROM edu_table WHERE user_token = ?;"
-    const sql5 = "SELECT email FROM sign_up WHERE user_token = ?;"
+    const sql5 = "SELECT email,verify_status FROM sign_up WHERE user_token = ?;"
     const sql6 = "SELECT * FROM bank_details WHERE user_token = ?;"
     const sql7 = "SELECT * FROM apply_scholarship WHERE user_token = ?;"
     const sql8 = "SELECT * FROM applicant_doc WHERE user_token = ?;"

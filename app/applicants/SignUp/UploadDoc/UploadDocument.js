@@ -134,7 +134,7 @@ const GetUploadDocumentByUserToken = (req, res) => {
                 }  
 
                 res.send(result);
-                 //console.log(result);
+                 console.log(result);
 
             });
              return
@@ -147,16 +147,55 @@ const GetUploadDocumentByUserToken = (req, res) => {
 
 
 
-const GetUploadDocument_for_checkup = (req, res) => {
+const get_doc_for_applicant_profile = (req, res) => {
 
+/* CREATE TABLE upload_doc(
 
-    const { user_token,qualification_type,ref_doc_token } = req.params;
-    
-    
-    const sql = `SELECT * FROM applicant_doc WHERE user_token = ? AND qualification_type = ? AND ref_doc_token = ?;`;
-    const sql1 = `SELECT * FROM upload_doc WHERE doc_token = ?;`;
+          upload_doc_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+          document_type_name VARCHAR(200) NOT NULL,
+          resdentialType VARCHAR(200) NOT NULL,
+          documentType VARCHAR(200) NOT NULL,
+          document_for VARCHAR(200) NOT NULL,
+          loan_category VARCHAR(200),
+          upload_for VARCHAR(200),
+          visibility VARCHAR(200),
+          instrct VARCHAR(500) NOT NULL,
+          upload_status VARCHAR(100),
+          doc_token VARCHAR(200),
+          createdAtTime VARCHAR(100),
+          createdAtDate VARCHAR(100)
 
-    db.query(sql, [user_token,qualification_type,ref_doc_token], (err, result) => {
+);
+
+CREATE TABLE applicant_doc(
+
+    applicant_doc_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    document_type_name VARCHAR(200) NOT NULL,
+    document_file_name VARCHAR(200) NOT NULL,
+    residential_type VARCHAR(200),
+    ref_doc_token VARCHAR(200),
+    qualification_type VARCHAR(200),
+    upload_status VARCHAR(100),
+    verify_status VARCHAR(50),
+    rejectionReason VARCHAR(200),
+    user_token VARCHAR(200),
+    file_token VARCHAR(200),
+    createdAtTime VARCHAR(100),
+    createdAtDate VARCHAR(100)
+);
+ */
+    const { loanRequest,from,user_token } = req.params;
+     
+    if (!loanRequest || !from || !user_token) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
+     let upload_docSql , applicant_docSql, allSql;
+
+       if(from === "verification"){
+
+          allSql = `SELECT up.*,ad.* FROM upload_doc up LEFT JOIN applicant_doc ad ON up.doc_token = ad.ref_doc_token WHERE ad.user_token = ? AND up.loan_category = ?;`;
+       
+            db.query(allSql, [user_token,loanRequest], (err, result) => {
 
         if (err) {
             console.log(err);
@@ -167,9 +206,46 @@ const GetUploadDocument_for_checkup = (req, res) => {
             return res.status(404).json({ message: "No documents found for this user token" });
         }
 
+
         res.send(result);
 
+
+
     });
+
+       }else  if(from === "bankreviewer"){
+
+          
+        allSql = `SELECT up.*,ad.* FROM upload_doc up LEFT JOIN applicant_doc ad ON up.doc_token = ad.ref_doc_token WHERE ad.user_token = ? AND up.loan_category = ? AND visibility = ? ;`;
+       
+
+         db.query(allSql, [user_token,loanRequest,'yes'], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "Database error", error: err });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: "No documents found for this user token" });
+        }
+
+       //  console.log(result)
+        res.send(result);
+
+
+
+
+    });
+
+       }
+       
+  
+
+
+
+
+   
 };
 
 
@@ -177,6 +253,6 @@ const GetUploadDocument_for_checkup = (req, res) => {
 
 
 
-module.exports = { UploadDocument, GetUploadDocumentByUserToken,CheckDocument };
+module.exports = { UploadDocument, GetUploadDocumentByUserToken,CheckDocument ,get_doc_for_applicant_profile};
 
 

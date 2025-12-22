@@ -1,11 +1,11 @@
 const db = require('../../../database/db');
 const SendMail = require("./../../../email/SendMail")
-
+const ReturnVerificationNotfication = require("../../../email/ReturnVerificationNotfication")
 
 
 // insert for notes
 
-PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
+PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body,from)=> {
 
 
 
@@ -36,6 +36,10 @@ PostMssgNote = (sender_token,receiver_token,mssg_subject,mssg_body)=> {
              
                     
                         console.log("Message Sent , from PostMssgNote")
+
+                       /*  if(from === "return_verification") {
+                            ReturnVerificationNotfication(result[0].email)
+                        } */
              
              
                  })

@@ -16,7 +16,7 @@ const {UploadDoc,GetUploadDoc,GetUploadDocForApplicantSection,DeleteUploadDoc} =
 const {ApplicantUplaod_Doc,GetUploadDocApplicant, RejectMssgApplicantDoc,GetRejectMssgApplicantDoc} = require("../app/applicants/SignUp/ApplicantUplaod_Doc")
 const GetAllApplicant = require("../app/dashbord/GetApplicantData/GetAllApplicant")
 const Get_By_Qualification_Type = require("../app/dashbord/GetApplicantData/Get_By_Qualification_Type")
-const {UploadDocument,GetUploadDocumentByUserToken} = require("../app/applicants/SignUp/UploadDoc/UploadDocument")
+const {UploadDocument,GetUploadDocumentByUserToken,get_doc_for_applicant_profile} = require("../app/applicants/SignUp/UploadDoc/UploadDocument")
 const HandleDoc_uplaod = require("../handleFile/HandleDoc_uplaod")
 const removeScholarship = require("../app/dashbord/Scholarship/Remove_Scholarship")
 const ApplyScholarship = require("../app/applicants/SignUp/apply_scholarship/ApplyScholarship")
@@ -52,10 +52,10 @@ const {UploadDocSettings,UploadedFilesGet,DeleteUploadedFile,DownloadUploadFIle}
 const {Count_All_applicants} = require("../app/dashbord/counts/Count_All_applicants")
 const {CreditSearch,GetCreditSearch} = require("../app/applicants/SignUp/CreditSearch")
 const HandleCreditSearchFile = require("../handleFile/HandleCreditSearchFile")
-
-
-
-
+const  {CheckReturenApplication,return_application_process} = require("../app/dashbord/handleverify/CheckReturenApplication")
+const {Inpriciple_offer,Get_Inpriciple_offer,Decline_offer} = require("../app/applicants/offers/Inpriciple_offer")
+  
+  
  
 // loan section
 const updateloanRequest = require("../app/applicants/SignUp/loan/update/updateloanRequest")
@@ -170,19 +170,24 @@ router.get("/count_all_applicants",Count_All_applicants)
 router.post("/credit_search",HandleCreditSearchFile.single('file'),CreditSearch)
 // GetCreditSearch
 router.get("/get_credit_search/:user_token",GetCreditSearch)
+// get_doc_for_applicant_profile
+router.get("/get_doc_for_applicant_profile/:loanRequest/:from/:user_token",get_doc_for_applicant_profile)
+// CheckReturenApplication 
+router.get("/check_if_returned/:user_token",CheckReturenApplication)
+//return_application_process
+router.get("/returned_application_process/:user_token",return_application_process)
+// Inpriciple_offer
+router.post("/set_inpriciple_offer",Inpriciple_offer)
+// Get_Inpriciple_offer
+router.get("/get_inpriciple_offer/:user_token",Get_Inpriciple_offer)
+//Decline_offer
+router.post("/deline_offer",Decline_offer)
 
 
 
 
 
-
-
-
-  
-
-
-
-
+ 
 
 // SetLoan
 router.post("/set_loan",SetLoan)

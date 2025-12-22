@@ -1,6 +1,7 @@
 const db = require('../../../database/db')
 const TokensGenerator = require('../../../functions/TokensGenerator')
 const {SetDateFomat,SetTimeFormat} = require('../../../functions/Date')
+const CreditSearchNotOk = require("../../../email/CreditSearchNotOk")
 
 
 
@@ -13,22 +14,23 @@ CreditSearch = (req,res)=>{
 
 
 
-const {search_status,comments,user_tokens} = req.body
+const {search_status,comments,user_tokens,email} = req.body
 const token = TokensGenerator(10)
 
 
 
         const sql = "INSERT INTO credit_search(user_token,search_status,credit_file,token,credit_comment,createdAtTime,createdAtDate) VALUES(?,?,?,?,?,?,?);"
-        const updateSql = "UPDATE credit_search SET search_status = ?, credit_file = ?, credit_comment = ? WHERE user_token = ? AND token = ?;"
+        const updateSql = "UPDATE credit_search SET search_status = ?, credit_file = ?, credit_comment = ? WHERE user_token = ?;"
            
            
         const file = req.file.filename
-        const checksql = "SELECT credit_search WHERE user_token = ?;"
+        const checksql = "SELECT * FROM credit_search WHERE user_token = ?;"
 
 
         db.query(checksql,[user_tokens,token],(err,checkresult)=>{
             
             if(err) return console.log(err.message)
+
 
             if(checkresult.length > 0){
 
@@ -36,6 +38,14 @@ const token = TokensGenerator(10)
                 db.query(updateSql,[search_status,file,comments,user_tokens],(err,updateresult)=>{
             
                     if(err) return console.log(err.message)
+
+                         if(search_status === "notok"){
+                        
+                             CreditSearchNotOk(email)
+
+                         }
+
+                        
 
                     return res.send({  
                         status:true,
@@ -55,6 +65,11 @@ const token = TokensGenerator(10)
                    if(err) return console.log(err.message)
 
 
+                     if(search_status === "notok"){
+                        
+                             CreditSearchNotOk(email)
+
+                         }
 
 
                             res.send({  
@@ -89,11 +104,11 @@ const token = TokensGenerator(10)
 GetCreditSearch = (req,res)=>{
 
 
-        const {user_token} = req.body
+        const {user_token} = req.params
 
-        const sql = "SELECT * FROM credit_search WHERE user_token = ? ORDER BY credit_search_id DESC;"
+        const sql = "SELECT * FROM credit_search WHERE user_token = ?;"
 
-
+             console.log(user_token)
 
         db.query(sql,[user_token],(err,result)=>{
             

@@ -3,7 +3,24 @@ const validator = require("validator")
 
 
 
+// update aknowledge 
 
+UpdateAcknowledgment = (user_token)=>{
+
+
+        const sql = "UPDATE acknowledgment SET mssg = ?, ack_status = ? WHERE user_token = ?;"
+
+        db.query(sql,["return_application","unread",user_token],(err,result)=>{
+
+                 if (err) return reject(err);
+
+                 console.log("acknowledgment reset")
+        })
+
+
+
+
+}
 
 
 const CheckifAllinputFilled = (user_token,loan_category) => {
@@ -278,4 +295,4 @@ GetAcknowledgment = (req,res)=> {
 
  
 
-module.exports = {Acknowledgment, GetAcknowledgment}
+module.exports = {Acknowledgment, GetAcknowledgment,UpdateAcknowledgment}

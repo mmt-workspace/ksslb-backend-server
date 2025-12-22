@@ -219,14 +219,78 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
           LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
               WHERE 
                su.verify_status = 'rejected' AND loan.apply_status = 'applied';`
-
+  
           }
 
         
     }
 
 
+
+
+        if(type === "disbursement"){
   
+          // not working yet
+          if(which === "bank"){
+              sql = `SELECT 
+              bt.*, 
+              su.verify_status,
+              et.*,
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'approved' AND loan.apply_status = 'applied';`
+
+
+          }else if(which === "disburs"){
+
+              sql = `SELECT 
+              bt.*, 
+              su.verify_status,
+              et.*,
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'accepted' AND loan.apply_status = 'applied';`
+
+
+          }else if(which === "rejected"){
+
+                  // not working yet
+               sql = `SELECT 
+              bt.*, 
+              su.verify_status,
+              et.*,
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'rejected' AND loan.apply_status = 'applied';`
+  
+          }
+
+        
+    }
+
+
+   
     
     db.query(sql,(err,result)=>{
         if(err) return console.log(err.message)

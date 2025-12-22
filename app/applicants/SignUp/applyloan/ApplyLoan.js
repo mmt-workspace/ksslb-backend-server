@@ -135,8 +135,15 @@ GetLoanAppliedList_for_my_app =  (req,res) =>{
 
     const  user_token = req.params.user_token;
      
+
     
-    const sql = `SELECT * FROM apply_loan WHERE user_token = ?;`;
+     const sql = `
+      SELECT DISTINCT a.*, su.verify_status,su.user_token
+      FROM apply_loan a
+      LEFT JOIN sign_up su
+        ON a.user_token = su.user_token
+      WHERE a.user_token = ?;
+    `;
     
     db.query(sql,[user_token],(err, result) => {
     
@@ -150,7 +157,7 @@ GetLoanAppliedList_for_my_app =  (req,res) =>{
         if (result.length === 0) {
             return res.status(404)
         }
-    
+       //  console.log(result)
         res.send(result);
         
     });

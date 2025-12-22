@@ -434,6 +434,7 @@ DELIMITER ;
     award_status VARCHAR(100),
     createdAtTime VARCHAR(100),
     createdAtDate VARCHAR(100)
+    
 );
 
 /* Loan SQL */
@@ -449,12 +450,15 @@ CREATE TABLE loan_requests (
   net_monthly_income DECIMAL(18,2) NOT NULL DEFAULT 0.00,
   loan_category VARCHAR(100),
   token VARCHAR(200) NOT NULL,
-    valuePer int DEFAULT 0,
+  program_type VARCHAR(200) DEFAULT "not selected",
+  valuePer int DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CHECK (tenor BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/* Loan requests Dec 20 2025 */
+alter table loan_requests add column program_type VARCHAR(200) DEFAULT "not selected";
 
 
 loan_requestsALTER TABLE loan_requests  MODIFY tenor TINYINT UNSIGNED NOT NULL DEFAULT 1;
@@ -692,6 +696,34 @@ CREATE TABLE acknowledgment (
       createdAtDate VARCHAR(100)
 
 );
+
+/* inprinciple offer  continue on this offer section*/
+CREATE TABLE inprinciple_offer (
+
+     inprinciple_offer_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+     loan_processed_for VARCHAR(200),
+     Sponsor   VARCHAR(200),
+     Student  VARCHAR(200),
+     Amount_Requested  VARCHAR(200),
+     Amount_Requested_Tenor  VARCHAR(200),
+     Amount_Offered  VARCHAR(200),
+     Amount_Offered_Tenor  VARCHAR(200),
+     Credit_Report  VARCHAR(200),
+     Credit_Status VARCHAR(200),
+     did_accept  VARCHAR(200) DEFAULT "not_yet",
+     bank_reviewer_token  VARCHAR(200) not null ,
+     offer_status  VARCHAR(200) DEFAULT "not_yet",
+     user_token VARCHAR(200),
+     token VARCHAR(200),
+      createdAtTime VARCHAR(100),
+      createdAtDate VARCHAR(100)
+);
+
+/* dec 20 25 */
+alter table inprinciple_offer add column guarantor VARCHAR(200);
+alter table inprinciple_offer add column loan_category VARCHAR(200);
+alter table inprinciple_offer add column program_type VARCHAR(200);
+alter table inprinciple_offer add column reasons TEXT;
 
 
 DELIMITER $$

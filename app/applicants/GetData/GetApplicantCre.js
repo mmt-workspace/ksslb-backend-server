@@ -25,14 +25,6 @@ GetApplicantCre = (req,res)=>{
     
 
 
-
-
-
-
-
-
-
-
 }
 
 
