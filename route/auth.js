@@ -54,7 +54,7 @@ const {CreditSearch,GetCreditSearch} = require("../app/applicants/SignUp/CreditS
 const HandleCreditSearchFile = require("../handleFile/HandleCreditSearchFile")
 const  {CheckReturenApplication,return_application_process} = require("../app/dashbord/handleverify/CheckReturenApplication")
 const {Inpriciple_offer,Get_Inpriciple_offer,Decline_offer} = require("../app/applicants/offers/Inpriciple_offer")
-  
+const {UpdatePassword,CheckEmailAdmin,CheckPasswordAdmin} = require("../app/dashbord/settings/UpdatePassword")
   
  
 // loan section
@@ -220,7 +220,8 @@ router.put("/Check_if_fill_all_before_apply",Check_if_fill_all_before_apply)
 router.get("/check_If_all_files_are_provided/:user_token/:loan_category",Check_If_all_files_are_provided)
 // get_uploaded_files_settings
 router.post("/upload_file_sett",HandleDoc_uplaod_Settings.single('file'),UploadDocSettings)
-
+// set
+router.put("/admin_update_password",CheckEmailAdmin,CheckPasswordAdmin,UpdatePassword)
 
 
  

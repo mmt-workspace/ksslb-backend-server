@@ -191,7 +191,7 @@ CREATE TABLE applicant_doc(
     }
      let upload_docSql , applicant_docSql, allSql;
 
-       if(from === "verification"){
+       if(from === "verification" || from === "loanapproval"){
 
           allSql = `SELECT up.*,ad.* FROM upload_doc up LEFT JOIN applicant_doc ad ON up.doc_token = ad.ref_doc_token WHERE ad.user_token = ? AND up.loan_category = ?;`;
        

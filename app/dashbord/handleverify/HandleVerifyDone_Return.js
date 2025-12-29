@@ -57,9 +57,11 @@ HandleVerifyDone_Return = (req,res)=>{
                         if(err) console.log(err)
 
                            // YOU need to fix this code , base on application status
-                        const check = result && result.length > 0 && result.every(doc => doc.verify_status === "Accepted" || doc.verify_status === "accepted");
-
-                        if(!check){
+                           const check = result?.length > 0 && result.every(doc => 
+                              ["Accepted", "accepted"].includes(doc.verify_status)
+                           );
+                          
+                           if(check){
 
                         db.query(sqlloan_steps,[verify_status,user_token,time,date],(err,result)=>{
 
@@ -79,7 +81,7 @@ HandleVerifyDone_Return = (req,res)=>{
 
 
 
-                        })
+                         })
 
 
 
@@ -204,7 +206,7 @@ HandleVerifyDone_Return = (req,res)=>{
 
         }else if(type === "accepted"){
 
-             verify_status = type
+                    verify_status = type
                     mssg_subject = "Loan Accepted by the bank"
                     mssg_body = "Your loan offer has been accepted by the bank. We will proceed with the next steps."
 
