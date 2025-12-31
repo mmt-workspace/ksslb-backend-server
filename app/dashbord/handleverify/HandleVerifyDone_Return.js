@@ -57,10 +57,14 @@ HandleVerifyDone_Return = (req,res)=>{
                         if(err) console.log(err)
 
                            // YOU need to fix this code , base on application status
-                           const check = result?.length > 0 && result.every(doc => 
+
+                               if( result?.length > 0){
+
+                                 
+                                     const check =  result.every(doc => 
                               ["Accepted", "accepted"].includes(doc.verify_status)
                            );
-                          
+                            console.log("Check status of all documents:", check);
                            if(check){
 
                         db.query(sqlloan_steps,[verify_status,user_token,time,date],(err,result)=>{
@@ -99,6 +103,18 @@ HandleVerifyDone_Return = (req,res)=>{
                         return
 
                         }
+
+                           
+
+                          }else{
+                              res.send({ 
+                                 status: false,
+                                 textStatus:"No Applicant found for verification."
+                              })
+                              return
+                          }
+
+                        
 
                         })
 
