@@ -60,7 +60,7 @@ HandleVerifyDone_Return = (req,res)=>{
 
                                if( result?.length > 0){
 
-                                 
+                                         console.log(result)
                                      const check =  result.every(doc => 
                               ["Accepted", "accepted"].includes(doc.verify_status)
                            );
