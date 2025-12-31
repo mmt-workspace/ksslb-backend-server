@@ -210,23 +210,56 @@ HandleVerifyDone_Return = (req,res)=>{
                     mssg_subject = "Loan Accepted by the bank"
                     mssg_body = "Your loan offer has been accepted by the bank. We will proceed with the next steps."
 
+                      const checkOffer = "SELECT search_status FROM credit_search WHERE user_token = ?;"
 
-                       db.query(sqlAcceptedOrRejected,[verify_status,user_token,time,date],(err,result)=>{
+                        db.query(checkOffer,[user_token],(err,result)=>{
 
-                        if(err) console.log(err)
+                                        if(err) console.log(err)
 
-                        db.query(sql,[verify_status,verifier_token,user_token],(err,result)=>{
+                                            if(result.length > 0){
 
-                        if(err) console.log(err.message)
+                                               if( result[0].search_status === "notok" || result[0].search_status === "not searched"){
+     
+                                                    res.send({
+                                                          status: false,
+                                                          textStatus:" Credit Search not OK. Cannot accept loan."
+                                                           }) 
+     
+                                                           return
+                                               }else{
+     
+     
+                                                  db.query(sqlAcceptedOrRejected,[verify_status,user_token,time,date],(err,result)=>{
+                           
+                                                   if(err) console.log(err)
+                           
+                                                   db.query(sql,[verify_status,verifier_token,user_token],(err,result)=>{
+                           
+                                                   if(err) console.log(err.message)
+                           
+                                                   res.send(verify_status)
+                                                   PostMssgNote (verifier_token,user_token,mssg_subject,mssg_body,"")
+                           
+                           
+                           
+                                                   })
+                           
+                                                   })
+     
+     
+                                               }
 
-                        res.send(verify_status)
-                        PostMssgNote (verifier_token,user_token,mssg_subject,mssg_body,"")
+                                            }else{
+
+                                                res.send({
+                                                    status: false,
+                                                    textStatus:" Credit Search not found. Cannot accept loan."
+                                                     }) 
+                                            }
+                                   
+                        }) 
 
 
-
-                        })
-
-                        })
 
 
         }else if(type === "rejected"){
@@ -234,24 +267,76 @@ HandleVerifyDone_Return = (req,res)=>{
              verify_status = type
                     mssg_subject = "Loan Rejected by the bank"
                     mssg_body = "We regret to inform you that your loan application has been rejected by the bank."
+                       const checkOffer = "SELECT search_status FROM credit_search WHERE user_token = ?;"
+
+                        db.query(checkOffer,[user_token],(err,result)=>{
+
+                                        if(err) console.log(err)
+
+                                            if(result.length > 0){
+
+                                               if( result[0].search_status === "notok"){
+     
+                                                   
+                                                             db.query(sqlAcceptedOrRejected,[verify_status,user_token,time,date],(err,result)=>{
+    
+                                                             if(err) console.log(err)
+    
+                                                             db.query(sql,[verify_status,verifier_token,user_token],(err,result)=>{
+    
+                                                             if(err) console.log(err.message)
+    
+                                                             res.send({
+                                                             status: true,
+                                                             textStatus: verify_status
+                                                             }) 
+    
+                                                             PostMssgNote (verifier_token,user_token,mssg_subject,mssg_body,"")
+    
+    
+    
+                                                             })
+    
+                                                                  })
+                                                         }else{
 
 
-                       db.query(sqlAcceptedOrRejected,[verify_status,user_token,time,date],(err,result)=>{
+                                                             res.send({
+                                                          status: false,
+                                                          textStatus:" Credit Search not OK. Cannot reject loan."
+                                                           })
 
-                        if(err) console.log(err)
+                                                             return
 
-                        db.query(sql,[verify_status,verifier_token,user_token],(err,result)=>{
-
-                        if(err) console.log(err.message)
-
-                        res.send(verify_status)
-                        PostMssgNote (verifier_token,user_token,mssg_subject,mssg_body,"")
-
+                                                         }
+                                                         
+                                                   
+                                                         }
+                                                         else{
 
 
-                        })
+                                                         
+                                                         res.send({
+                                                             status: false,
+                                                             textStatus:" Credit Search not found. Cannot reject loan."
+                                                              })
 
-                        })
+
+
+
+
+
+                                                             }
+
+
+
+                  }  
+                )
+
+
+
+
+
         }
         
 

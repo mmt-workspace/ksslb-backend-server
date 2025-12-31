@@ -725,6 +725,59 @@ alter table inprinciple_offer add column loan_category VARCHAR(200);
 alter table inprinciple_offer add column program_type VARCHAR(200);
 alter table inprinciple_offer add column reasons TEXT;
 
+/* dec 30 25 done */
+CREATE TABLE disbursement_requests (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_token VARCHAR(255) UNIQUE NOT NULL,
+    clientName VARCHAR(255),
+    disbursementStudentName VARCHAR(255),
+    disbursementAmountText VARCHAR(255),
+    paymentType VARCHAR(50),
+    isInternational BOOLEAN,
+    hasOthers BOOLEAN,
+    loanbank_account_number VARCHAR(255),
+    a_studentName VARCHAR(255),
+    a_accountName VARCHAR(255),
+    a_amount VARCHAR(255),
+    a_level VARCHAR(255),
+    a_remita VARCHAR(255),
+    b_studentName VARCHAR(255),
+    b_amount VARCHAR(255),
+    b_bank VARCHAR(255),
+    b_course VARCHAR(255),
+    b_level VARCHAR(255),
+    b_matricNo VARCHAR(255),
+    b_schoolAccountName VARCHAR(255),
+    b_schoolName VARCHAR(255),
+    c_studentName VARCHAR(255),
+    c_bank VARCHAR(255),
+    c_branch VARCHAR(255),
+    c_course VARCHAR(255),
+    c_iban VARCHAR(255),
+    c_level VARCHAR(255),
+    c_matricNo VARCHAR(255),
+    c_schoolAccountName VARCHAR(255),
+    c_schoolName VARCHAR(255),
+    c_swift VARCHAR(255),
+    oth_accNo VARCHAR(255),
+    oth_amount VARCHAR(255),
+    oth_bank VARCHAR(255),
+    oth_name VARCHAR(255),
+    sk_accNo VARCHAR(255),
+    sk_amount VARCHAR(255),
+    sk_bank VARCHAR(255),
+    sk_centre VARCHAR(255),
+    sk_centreAcc VARCHAR(255),
+    up_accNo VARCHAR(255),
+    up_amount VARCHAR(255),
+    up_bank VARCHAR(255),
+    up_name VARCHAR(255),
+    createdAtTime VARCHAR(50),
+    createdAtDate VARCHAR(50),
+    updatedAtTime VARCHAR(50),
+    updatedAtDate VARCHAR(50)
+);
+
 
 DELIMITER $$
 
