@@ -58,11 +58,11 @@ HandleVerifyDone_Return = (req,res)=>{
 
                            // YOU need to fix this code , base on application status
 
+                                
                                if( result?.length > 0){
 
-                                         console.log(result)
                                      const check =  result.every(doc => 
-                              ["Accepted", "accepted"].includes(doc.verify_status)
+                              ["Accepted", "accepted",null].includes(doc.verify_status)
                            );
                             console.log("Check status of all documents:", check);
                            if(check){
