@@ -732,6 +732,8 @@ CREATE TABLE disbursement_requests (
     clientName VARCHAR(255),
     disbursementStudentName VARCHAR(255),
     disbursementAmountText VARCHAR(255),
+    sponsorName VARCHAR(255),
+    totalAmountRequested VARCHAR(255),
     paymentType VARCHAR(50),
     isInternational BOOLEAN,
     hasOthers BOOLEAN,
@@ -778,6 +780,10 @@ CREATE TABLE disbursement_requests (
     updatedAtDate VARCHAR(50)
 );
 
+
+    
+alter table disbursement_requests add column totalAmountRequested VARCHAR(255);
+alter table disbursement_requests add column sponsorName VARCHAR(255);
 
 DELIMITER $$
 

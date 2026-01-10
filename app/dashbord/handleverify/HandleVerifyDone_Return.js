@@ -64,7 +64,7 @@ HandleVerifyDone_Return = (req,res)=>{
                                      const check =  result.every(doc => 
                               ["Accepted", "accepted",null].includes(doc.verify_status)
                            );
-                            console.log("Check status of all documents:", check);
+                           
                            if(check){
 
                         db.query(sqlloan_steps,[verify_status,user_token,time,date],(err,result)=>{

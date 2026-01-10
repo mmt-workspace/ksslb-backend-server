@@ -14,6 +14,8 @@ const createDisbursementRequest = (req, res) => {
         clientName,
         disbursementStudentName,
         disbursementAmountText,
+        sponsorName,
+        totalAmountRequested,
         paymentType,
         isInternational,
         hasOthers,
@@ -61,7 +63,7 @@ const createDisbursementRequest = (req, res) => {
 
     const insertSql = `
         INSERT INTO disbursement_requests (
-            user_token, clientName, disbursementStudentName, disbursementAmountText,
+            user_token, clientName, disbursementStudentName, disbursementAmountText, sponsorName, totalAmountRequested,
             paymentType, isInternational, hasOthers, loanbank_account_number,
             a_studentName, a_accountName, a_amount, a_level, a_remita,
             b_studentName, b_amount, b_bank, b_course, b_level, b_matricNo,
@@ -71,10 +73,10 @@ const createDisbursementRequest = (req, res) => {
             sk_accNo, sk_amount, sk_bank, sk_centre,sk_centreAcc,
             up_accNo, up_amount, up_bank, up_name,
             createdAtTime, createdAtDate
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
     db.query(insertSql, [
-        user_token, clientName, disbursementStudentName, disbursementAmountText,
+        user_token, clientName, disbursementStudentName, disbursementAmountText, sponsorName, totalAmountRequested,
         paymentType, isInternational, hasOthers, loanbank_account_number,
         a_studentName, a_accountName, a_amount, a_level, a_remita,
         b_studentName, b_amount, b_bank, b_course, b_level, b_matricNo,

@@ -56,7 +56,7 @@ Get_Inpriciple_offer = (req,res) =>{
 
 
            const {user_token}  = req.params
-
+  console.log(user_token)
            const sql = "SELECT * FROM inprinciple_offer WHERE user_token = ?;"
            const sql2 = "SELECT s_i_d FROM applicant_credentials WHERE user_token = ?;"
            
@@ -84,11 +84,11 @@ Get_Inpriciple_offer = (req,res) =>{
  
 
 
-
+  
            })
                    
 
-
+  
 
 
            })

@@ -44,7 +44,8 @@ RegisterAdministration = async(req,res) =>{
           "Bank reviewer",
           "account-helper",
           "Manage Loan",
-          "Manage Scholarship"
+          "Manage Scholarship",
+          "Manage Loan General"
            ]
 
        let acc_level
@@ -86,6 +87,11 @@ RegisterAdministration = async(req,res) =>{
                 case user_roles[8]:
                     // code block
                     acc_level = 222
+              break;
+
+               case user_roles[9]:
+                    // code block
+                    acc_level = 2099
               break;
 
               default:
