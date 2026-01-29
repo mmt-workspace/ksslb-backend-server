@@ -91,6 +91,7 @@ CREATE TABLE addbank(
 );
 
 /*  Track and Record Login */
+
 /* CREATE TABLE WatchSignSignOut(
 
         WatchSignSignOut_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -727,6 +728,7 @@ alter table inprinciple_offer add column reasons TEXT;
 
 /* dec 30 25 done */
 CREATE TABLE disbursement_requests (
+
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_token VARCHAR(255) UNIQUE NOT NULL,
     clientName VARCHAR(255),
@@ -734,6 +736,9 @@ CREATE TABLE disbursement_requests (
     disbursementAmountText VARCHAR(255),
     sponsorName VARCHAR(255),
     totalAmountRequested VARCHAR(255),
+    approver_status VARCHAR(255),
+    disburs_status VARCHAR(255),
+    amount_approve VARCHAR(255),
     paymentType VARCHAR(50),
     isInternational BOOLEAN,
     hasOthers BOOLEAN,
@@ -778,12 +783,16 @@ CREATE TABLE disbursement_requests (
     createdAtDate VARCHAR(50),
     updatedAtTime VARCHAR(50),
     updatedAtDate VARCHAR(50)
+
 );
 
-
+/* need to send to server */
     
-alter table disbursement_requests add column totalAmountRequested VARCHAR(255);
-alter table disbursement_requests add column sponsorName VARCHAR(255);
+alter table disbursement_requests add column reason_text Text;
+alter table disbursement_requests add column approved_request VARCHAR(255);
+alter table disbursement_requests add column accept_request VARCHAR(255);
+
+
 
 DELIMITER $$
 

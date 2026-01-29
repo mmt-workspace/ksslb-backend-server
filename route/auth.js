@@ -55,7 +55,7 @@ const HandleCreditSearchFile = require("../handleFile/HandleCreditSearchFile")
 const  {CheckReturenApplication,return_application_process} = require("../app/dashbord/handleverify/CheckReturenApplication")
 const {Inpriciple_offer,Get_Inpriciple_offer,Decline_offer} = require("../app/applicants/offers/Inpriciple_offer")
 const {UpdatePassword,CheckEmailAdmin,CheckPasswordAdmin} = require("../app/dashbord/settings/UpdatePassword")
-const {createDisbursementRequest,getDisbursementRequestByUserToken} =  require("../app/applicants/offers/RequestForDisbursMentStudent")
+const {ApprovedisbursementRequest,createDisbursementRequest,getDisbursementRequestByUserToken} =  require("../app/applicants/offers/RequestForDisbursMentStudent")
   
  
 // loan section
@@ -187,7 +187,8 @@ router.post("/deline_offer",Decline_offer)
 router.post("/create_disbursement_request",createDisbursementRequest)
 // getDisbursementRequestByUserToken
 router.get("/get_disbursement_request/:user_token",getDisbursementRequestByUserToken)
-
+// ApprovedisbursementRequest
+router.post("/accept_student_request_letter",ApprovedisbursementRequest)
 
   
   

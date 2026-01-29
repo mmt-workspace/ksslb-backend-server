@@ -186,11 +186,12 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
           }else if(which === "accepted"){
 
-              sql = `SELECT 
+               sql = `SELECT 
               bt.*, 
               su.verify_status,
               et.*,
-              loan.*
+              loan.*,
+               loan_step.*
           FROM 
               bio_table bt
           LEFT JOIN 
@@ -198,8 +199,9 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
           LEFT JOIN 
               edu_table et ON bt.user_token = et.user_token
           LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+          LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
               WHERE 
-               su.verify_status = 'accepted' AND loan.apply_status = 'applied';`
+         su.verify_status = 'accepted' AND loan.apply_status = 'applied' AND loan_step.ut_letter IS NULL;`
 
 
           }else if(which === "rejected"){
@@ -207,8 +209,8 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
                sql = `SELECT 
               bt.*, 
-              su.verify_status,
-              et.*,
+              su.verify_status, 
+              et.*, 
               loan.*
           FROM 
               bio_table bt
@@ -231,40 +233,50 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
         if(type === "disbursement"){
   
           // not working yet
-          if(which === "bank"){
-              sql = `SELECT 
-              bt.*, 
-              su.verify_status,
-              et.*,
-              loan.*
-          FROM 
-              bio_table bt
-          LEFT JOIN 
-            sign_up su ON bt.user_token = su.user_token
-          LEFT JOIN 
-              edu_table et ON bt.user_token = et.user_token
-          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
-              WHERE 
-               su.verify_status = 'approved' AND loan.apply_status = 'applied';`
-
+          if(which === "Disbursement_sent"){
+             sql = `SELECT 
+                bt.*, 
+                su.verify_status,
+                et.*,
+                loan.*,
+                loan_step.*
+            FROM 
+                bio_table bt
+            LEFT JOIN 
+                sign_up su ON bt.user_token = su.user_token
+            LEFT JOIN 
+                edu_table et ON bt.user_token = et.user_token
+            LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+            LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
+            WHERE 
+                su.verify_status = 'accepted' 
+                AND loan.apply_status = 'applied' 
+                AND loan_step.ut_letter = 'ut_letter_done' 
+                AND loan_step.disbursment = 'approved_disbursement';`
 
           }else if(which === "disburs"){
 
-              sql = `SELECT 
-              bt.*, 
-              su.verify_status,
-              et.*,
-              loan.*
-          FROM 
-              bio_table bt
-          LEFT JOIN 
-            sign_up su ON bt.user_token = su.user_token
-          LEFT JOIN 
-              edu_table et ON bt.user_token = et.user_token
-          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
-              WHERE 
-               su.verify_status = 'accepted' AND loan.apply_status = 'applied';`
+            sql = `SELECT 
+                bt.*, 
+                su.verify_status,
+                et.*,
+                loan.*,
+                loan_step.*
+            FROM 
+                bio_table bt
+            LEFT JOIN 
+                sign_up su ON bt.user_token = su.user_token
+            LEFT JOIN 
+                edu_table et ON bt.user_token = et.user_token
+            LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+            LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
+            WHERE 
+                su.verify_status = 'accepted' 
+                AND loan.apply_status = 'applied' 
+                AND loan_step.ut_letter = 'ut_letter_done' 
+                AND loan_step.disbursment IS NULL';`
 
+ 
 
           }else if(which === "rejected"){
 
@@ -295,10 +307,10 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
     db.query(sql,(err,result)=>{
         if(err) return console.log(err.message)
          //    console.log(result)
+        
+        console.log(result)
              res.send(result)
     })
-
-
 
 
 
