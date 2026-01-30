@@ -302,6 +302,38 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
     }
 
 
+
+
+     if(type === "dispute"){
+  
+
+          if(which === "get_dispute"){
+
+                sql = `SELECT 
+              bt.*, 
+              su.verify_status, 
+              et.*, 
+              loan.*
+          FROM 
+              bio_table bt
+          LEFT JOIN 
+            sign_up su ON bt.user_token = su.user_token
+          LEFT JOIN 
+              edu_table et ON bt.user_token = et.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+              WHERE 
+               su.verify_status = 'disqualified' AND loan.apply_status = 'applied';`
+  
+
+
+          }
+
+
+    }
+
+
+
+
    
     
     db.query(sql,(err,result)=>{

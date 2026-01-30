@@ -1,4 +1,4 @@
-const db = require("../../../database/db");
+const db = require("../../../../database/db");
 const VerificationCode = require("../../../../email/VerificationCode")
 const bcrypt = require("bcryptjs")
 
@@ -12,91 +12,62 @@ user_token
 */
 
 // Check if Email exist
-const CheckEmailApplicant = (req,res,next)=>{
+const CheckEmailApplicant = (req,res)=>{
 
       const {email,user_token}  = req.body
-    
-      const sql = "SELECT email FROM sign_up WHERE user_token = ?;"
+       
+      const sql = "SELECT email FROM sign_up WHERE email = ?;"
 
-      db.query(sql,[user_token],(err,result) =>{
+      db.query(sql,[email],(err,result) =>{
 
             if(err) return console.log(err.message) 
                
              
-            if(!result[0].email > 0){
+            if(result.length > 0){
 
+
+                      res.send({
+                        statusText:"Email Exist",
+                        status:true
+                     }) 
+
+                       GenerateCodeForgetPassword(email)
+
+
+
+                }else{
+
+                      
                      res.send({
                         statusText:"Email not Exist",
                         status:false
                      }) 
-                }else{
-                     next()
+                     
                 } 
       })
 
 
 }
 
-/* check code */
-const CheckCode = (req,res)=>{
 
-
-      const {code,user_token}  = req.body
-    
-      const sql = "SELECT generated_code FROM generateCode WHERE user_token = ?;"
-
-      db.query(sql,[user_token],(err,result) =>{
-
-
-            if(err) return console.log(err.message) 
-               
-             
-            if(!result[0].email > 0){
-
-                     res.send({
-                        statusText:"Code not Exist",
-                        status:false
-                     }) 
-                }else{
-                     next()
-                } 
-
-
-      })
-
-
-      
-
-}
-
-
-
-
-/*  CREATE TABLE generateCode(
-      generateCode_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-      user_token VARCHAR(200) NOT NULL,
-      email VARCHAR(200) NOT NULL,
-      generated_code VARCHAR(200) NOT NULL
- ); */
 
 
 
 // ChecK if Password exist
-GenerateCodeForgetPassword = (req,res) =>{
+GenerateCodeForgetPassword = (email) =>{
 
 
 
-    const {usertoken} = req.params
-   
+
  
   
-    const sqlcheck = "SELECT * FROM sign_up WHERE  user_token = ?;"
+    const sqlcheck = "SELECT * FROM sign_up WHERE  email = ?;"
     const sqlcode = "INSERT INTO generateCode(user_token,email,generated_code) VALUE(?,?,?);"
 
 
 
 
-    db.query(sqlcheck,[usertoken],(err,result)=>{
+    db.query(sqlcheck,[email],(err,result)=>{
 
               if(err) console.log(err)
 
@@ -113,13 +84,10 @@ GenerateCodeForgetPassword = (req,res) =>{
                         
                           if(err){
                               console.log(err);
-                              return res.status(500).send({ status:false, textStatus:"Database error" });
+                              return;
                           }
 
-                          res.send({
-                              status:true,
-                              textStatus:"Code generated",
-                          });
+                          console.log("Generated code saved to database");
                       })
                       
 
@@ -132,13 +100,7 @@ GenerateCodeForgetPassword = (req,res) =>{
                 }else{
 
 
-                     res.send(
-                          
-                          {
-                            status:false,
-                            textStatus:"Account not exist"
-                          }
-                     )
+                         console.log("Email not found in sign_up table");
 
 
 
@@ -167,7 +129,50 @@ GenerateCodeForgetPassword = (req,res) =>{
 
 
 
-const UpdatePassword = async (req,res)=>{
+
+/* check code */
+const CheckCode = (req,res)=>{
+
+
+      const {code,email}  = req.body
+      
+      const sql = "SELECT * FROM generateCode WHERE generated_code = ? AND email = ?;"
+
+      db.query(sql,[code,email],(err,result) =>{
+
+
+            if(err) return console.log(err.message) 
+                
+
+            if(result.length > 0){
+  
+                  res.send({
+                        statusText:"Code Exist",
+                        status:true
+                     })
+                    
+
+                }else{
+                  
+
+
+                      res.send({
+                        statusText:"Code not Exist",
+                        status:false
+                     }) 
+
+                } 
+
+
+      })
+
+
+      
+
+}
+
+
+const UpdatePasswordApplicant = async (req,res)=>{
 
    const {newPassword,email,user_token} = req.body
    
@@ -175,11 +180,11 @@ const UpdatePassword = async (req,res)=>{
    
 
     // SQL
-     const sql = "UPDATE sign_up SET pswrd = ? WHERE email = ? AND user_token = ? ;"
+     const sql = "UPDATE sign_up SET pswrd = ? WHERE email = ? ;"
      const saltRound = 10
      let hashPasswrd = await bcrypt.hash(newPassword,saltRound)
 
-     db.query(sql,[hashPasswrd,email,user_token],(err,result)=>{
+     db.query(sql,[hashPasswrd,email],(err,result)=>{
        
       if(err){
        console.log(err.message)
@@ -191,17 +196,27 @@ const UpdatePassword = async (req,res)=>{
          status: true,   
           })
 
+          deleteGeneratedCode(email)
+
          }) 
  
-
-
-
 
 
 
 }
 
 
+const deleteGeneratedCode = (email) =>{
+
+      const sql = "DELETE FROM generateCode WHERE email = ?;"
+          db.query(sql,[email],(err,result)=>{    
+
+                    if(err) return console.log(err.message)
+                         console.log("Generated code deleted after password reset")
+          })
+}
 
 
-module.exports = {GenerateCodeForgetPassword}
+
+
+module.exports = {CheckEmailApplicant,CheckCode,UpdatePasswordApplicant}
