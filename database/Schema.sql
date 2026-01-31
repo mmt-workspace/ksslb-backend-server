@@ -914,6 +914,22 @@ CREATE TABLE uploaded_files (
   
 );
 
+/* Select duplicate records with same user_token in loan_steps */
+/* SELECT * FROM loan_steps 
+WHERE user_token IN (
+  SELECT user_token 
+  FROM loan_steps 
+  GROUP BY user_token 
+  HAVING COUNT(*) > 1
+)
+ORDER BY user_token, loan_id; */
+
+/* Delete duplicate records with same user_token in loan_steps */
+DELETE ls1 FROM loan_steps ls1
+INNER JOIN loan_steps ls2 
+WHERE ls1.user_token = ls2.user_token 
+AND ls1.loan_id > ls2.loan_id;
+
 
 /* 
 drop table  Set_scholarship ;

@@ -202,7 +202,7 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
           LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
               WHERE 
          su.verify_status = 'accepted' AND loan.apply_status = 'applied' AND loan_step.ut_letter IS NULL;`
-
+//   insert into loan_steps(verification,approval,bank_review,user_token) values('verified','approved','accepted','2523c8aPeppkXmq5NA5081');
 
           }else if(which === "rejected"){
 
