@@ -198,8 +198,8 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
             sign_up su ON bt.user_token = su.user_token
           LEFT JOIN 
               edu_table et ON bt.user_token = et.user_token
-          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
           LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
+          LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
               WHERE 
          su.verify_status = 'accepted' AND loan.apply_status = 'applied' AND loan_step.ut_letter IS NULL;`
 
