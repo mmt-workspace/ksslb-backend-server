@@ -340,7 +340,7 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
         if(err) return console.log(err.message)
          //    console.log(result)
         
-        console.log(result)
+       // console.log(result)
              res.send(result)
     })
 
