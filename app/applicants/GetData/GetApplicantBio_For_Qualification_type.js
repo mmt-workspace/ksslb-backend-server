@@ -334,7 +334,7 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
 
 
-   
+    
     
     db.query(sql,(err,result)=>{
         if(err) return console.log(err.message)
