@@ -186,19 +186,21 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
           }else if(which === "accepted"){
 
+
+
                sql = `SELECT 
               bt.*, 
               su.verify_status,
               loan_rqst.*,
               et.*,
-              loan.*,
+              loan.*,   
                loan_step.*
           FROM 
               bio_table bt
           LEFT JOIN 
             sign_up su ON bt.user_token = su.user_token
           LEFT JOIN 
-           loan_requests loan_rqst ON bt.user_token = loan_rqst.user_token
+            loan_requests loan_rqst ON bt.user_token = loan_rqst.token
           LEFT JOIN 
               edu_table et ON bt.user_token = et.user_token
           LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
