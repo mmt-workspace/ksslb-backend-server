@@ -29,7 +29,7 @@ Inpriciple_offer = (req,res)=>{
                db.query(updateSql, [Sponsor,guarantor,program_type,Student,Amount_Requested,Amount_Requested_Tenor,Amount_Offered,Amount_Offered_Tenor,Credit_Report,Credit_Status,offer_status,bank_reviewer_token,token,SetTimeFormat(),SetDateFomat(),user_token], (err) => {
                     if(err) console.log(err)
 
-                    CreditSearch_is_Ok(email)
+                  //  CreditSearch_is_Ok(email)
 
                     res.send({status: true, textStatus: "Offer updated"})
                })
@@ -41,7 +41,7 @@ Inpriciple_offer = (req,res)=>{
                     
                     if(err) console.log(err)
 
-                     CreditSearch_is_Ok(email)
+                   //  CreditSearch_is_Ok(email)
 
                     res.send({status: true, textStatus: "Offer set"})
                })
