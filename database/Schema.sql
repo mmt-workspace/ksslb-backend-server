@@ -791,6 +791,7 @@ CREATE TABLE disbursement_requests (
 alter table disbursement_requests add column reason_text Text;
 alter table disbursement_requests add column approved_request VARCHAR(255);
 alter table disbursement_requests add column accept_request VARCHAR(255);
+alter table disbursement_requests add column amount_approve VARCHAR(255);
 
 
 
