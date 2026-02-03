@@ -81,6 +81,8 @@ const createDisbursementRequest = (req, res) => {
       user_token VARCHAR(200),
       createdAtTime VARCHAR(100),
       createdAtDate VARCHAR(100)
+
+      7tKJJT30laTXN6g190
 );
     */
     
