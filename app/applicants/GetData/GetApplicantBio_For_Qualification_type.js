@@ -296,7 +296,7 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
             WHERE 
                 su.verify_status = 'accepted' 
                 AND loan.apply_status = 'applied' 
-                AND loan_step.disbursment IS NULL;`
+                AND loan_step.ut_letter = 'ut_letter_done';`
 
  
 
