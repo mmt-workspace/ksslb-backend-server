@@ -224,7 +224,32 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
                 su.verify_status = 'accepted' 
                 AND loan.apply_status = 'applied' 
                 AND loan_step.ut_letter = 'ut_letter_done' 
-                AND loan_step.disbursment = 'approved_disbursement';` 
+                AND loan_step.disbursment = 'approved_disbursement'
+                AND loan_step.done IS NULL;` 
+
+
+          }else if(which === "disbursedone"){
+
+               sql = `SELECT 
+                bt.*, 
+                su.verify_status,
+                et.*,
+                loan.*,
+                loan_step.*
+            FROM 
+                bio_table bt
+            LEFT JOIN 
+                sign_up su ON bt.user_token = su.user_token
+            LEFT JOIN 
+                edu_table et ON bt.user_token = et.user_token
+            LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+            LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
+            WHERE 
+                su.verify_status = 'accepted' 
+                AND loan.apply_status = 'applied' 
+                AND loan_step.ut_letter = 'ut_letter_done' 
+                AND loan_step.disbursment = 'approved_disbursement'
+                AND loan_step.done = 'accepted_disbursement';` 
 
 
           }else if(which === "rejected"){
@@ -255,7 +280,7 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
 
         if(type === "disbursement"){
   
-          // not working yet
+         
           if(which === "Disbursement_sent"){
              sql = `SELECT 
                 bt.*, 
@@ -275,7 +300,30 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
                 su.verify_status = 'accepted' 
                 AND loan.apply_status = 'applied' 
                 AND loan_step.ut_letter = 'ut_letter_done' 
-                AND loan_step.disbursment = 'approved_disbursement';`
+                AND loan_step.disbursment = 'approved_disbursement'
+                AND loan_step.done IS NULL;`
+
+          }if(which === "Disbursement_Approved"){
+             sql = `SELECT 
+                bt.*, 
+                su.verify_status,
+                et.*,
+                loan.*,
+                loan_step.*
+            FROM 
+                bio_table bt
+            LEFT JOIN 
+                sign_up su ON bt.user_token = su.user_token
+            LEFT JOIN 
+                edu_table et ON bt.user_token = et.user_token
+            LEFT JOIN apply_loan loan ON bt.user_token = loan.user_token
+            LEFT JOIN loan_steps loan_step ON bt.user_token = loan_step.user_token
+            WHERE 
+                su.verify_status = 'accepted' 
+                AND loan.apply_status = 'applied' 
+                AND loan_step.ut_letter = 'ut_letter_done' 
+                AND loan_step.disbursment = 'approved_disbursement'
+                AND loan_step.done = 'accepted_disbursement';`
 
           }else if(which === "disburs"){
 
@@ -296,7 +344,8 @@ GetApplicantBio_For_Qualification_type = (req,res)=>{
             WHERE 
                 su.verify_status = 'accepted' 
                 AND loan.apply_status = 'applied' 
-                AND loan_step.ut_letter = 'ut_letter_done';`
+                AND loan_step.ut_letter = 'ut_letter_done'
+                 AND loan_step.disbursment IS NULL;`
 
  
 

@@ -793,6 +793,20 @@ alter table disbursement_requests add column approved_request VARCHAR(255);
 alter table disbursement_requests add column accept_request VARCHAR(255);
 
 
+/* disbursement_requests_submit_file  */
+
+CREATE TABLE disbursement_requests_submit_file (
+
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_token VARCHAR(255) UNIQUE NOT NULL,
+    file_token VARCHAR(255),
+    file_name VARCHAR(255),
+    file_path VARCHAR(500),
+     updatedAtTime VARCHAR(50),
+    updatedAtDate VARCHAR(50)
+
+);
+
 
 
 DELIMITER $$

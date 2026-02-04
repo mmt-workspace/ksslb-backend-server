@@ -175,26 +175,7 @@ ApprovedisbursementRequest = (req, res) => {
 
     const { user_token, approver_status, reason } = req.body;
 
-    let sql 
-    /* CREATE TABLE loan_steps(
-
-      loan_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-      verification VARCHAR(200),
-      approval VARCHAR(200),
-      bank_review VARCHAR(200),
-      accept_offer VARCHAR(200),
-      open_account VARCHAR(200),
-      letter_status VARCHAR(200),
-      ut_letter VARCHAR(200),
-      ap_letter VARCHAR(200),
-      disbursment VARCHAR(200),
-      done VARCHAR(200),
-      expiry VARCHAR(200),
-      user_token VARCHAR(200),
-      createdAtTime VARCHAR(100),
-      createdAtDate VARCHAR(100)
-); */
- // 
+    
     // check if disbursement request exists before updating
     const checkSql = "SELECT * FROM disbursement_requests WHERE user_token = ?;";
 
