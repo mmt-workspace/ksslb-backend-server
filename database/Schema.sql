@@ -200,7 +200,7 @@ CREATE TABLE sign_up(
         signupDate DATETIME DEFAULT CURRENT_TIMESTAMP   
 
  );
-
+ 
  /* generate code */
 
  CREATE TABLE generateCode(
@@ -791,6 +791,7 @@ CREATE TABLE disbursement_requests (
 alter table disbursement_requests add column reason_text Text;
 alter table disbursement_requests add column approved_request VARCHAR(255);
 alter table disbursement_requests add column accept_request VARCHAR(255);
+alter table disbursement_requests add column b_schoolAccountNumber VARCHAR(255);
 
 
 /* disbursement_requests_submit_file  */

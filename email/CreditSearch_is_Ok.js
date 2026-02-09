@@ -154,7 +154,7 @@ const CreditSearch_is_Ok = async (email) => {
   Congratulations! We are pleased to inform you that your credit search verification has been <strong>successfully completed</strong> and you have met the required standards.
   </p>
 
-  <div class="alert">
+  <div class="alert">  
   <strong>Your application is moving forward!</strong><br>
   You now have a loan offer waiting for you. Please review it carefully and decide whether to accept or decline based on your needs.
   </div>

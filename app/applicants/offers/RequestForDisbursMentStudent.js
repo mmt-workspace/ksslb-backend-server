@@ -32,6 +32,7 @@ const createDisbursementRequest = (req, res) => {
         b_level,
         b_matricNo,
         b_schoolAccountName,
+        b_schoolAccountNumber,
         b_schoolName,
         c_studentName,
         c_bank,
@@ -106,20 +107,20 @@ const createDisbursementRequest = (req, res) => {
                 paymentType, isInternational, hasOthers, loanbank_account_number,
                 a_studentName, a_accountName, a_amount, a_level, a_remita,
                 b_studentName, b_amount, b_bank, b_course, b_level, b_matricNo,
-                b_schoolAccountName, b_schoolName, c_studentName, c_bank, c_branch,
+                b_schoolAccountName, b_schoolAccountNumber,b_schoolName, c_studentName, c_bank, c_branch,
                 c_course, c_iban, c_level, c_matricNo, c_schoolAccountName,
                 c_schoolName, c_swift, oth_accNo, oth_amount, oth_bank, oth_name,
                 sk_accNo, sk_amount, sk_bank, sk_centre,sk_centreAcc,
                 up_accNo, up_amount, up_bank, up_name,
                 createdAtTime, createdAtDate, amount_approve
-            ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);`;
+            ) VALUES(?, ?, ?, ?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);`;
 
         db.query(insertSql, [
             user_token, clientName, disbursementStudentName, disbursementAmountText, sponsorName, totalAmountRequested,
             paymentType, isInternational, hasOthers, loanbank_account_number,
             a_studentName, a_accountName, a_amount, a_level, a_remita,
             b_studentName, b_amount, b_bank, b_course, b_level, b_matricNo,
-            b_schoolAccountName, b_schoolName, c_studentName, c_bank, c_branch,
+            b_schoolAccountName,b_schoolAccountNumber, b_schoolName, c_studentName, c_bank, c_branch,
             c_course, c_iban, c_level, c_matricNo, c_schoolAccountName,
             c_schoolName, c_swift, oth_accNo, oth_amount, oth_bank, oth_name,
             sk_accNo, sk_amount, sk_bank, sk_centre, sk_centreAcc,
