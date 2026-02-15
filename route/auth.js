@@ -57,8 +57,9 @@ const {Inpriciple_offer,Get_Inpriciple_offer,Decline_offer} = require("../app/ap
 const {UpdatePassword,CheckEmailAdmin,CheckPasswordAdmin} = require("../app/dashbord/settings/UpdatePassword")
 const {CheckEmailApplicant,CheckCode,UpdatePasswordApplicant} = require("../app/applicants/SignUp/updatepassword/UpdatePassword")
 const {ApprovedisbursementRequest,createDisbursementRequest,getDisbursementRequestByUserToken} =  require("../app/applicants/offers/RequestForDisbursMentStudent")
-const {FinalLetterOffer,accepted_disbursement,GetLoanSteps,Getdisbursement_requests_submit_file} = require("../app/applicants/offers/FinalLetterOffer")
+const {FinalLetterOffer,accepted_disbursement,GetLoanSteps,Getdisbursement_requests_submit_file,Submit_SignFinalOfferLetter} = require("../app/applicants/offers/FinalLetterOffer")
 const HandleFinalLetter = require("../handleFile/HandleFinalLetter")
+
  
 // loan section
 const updateloanRequest = require("../app/applicants/SignUp/loan/update/updateloanRequest")
@@ -197,6 +198,8 @@ router.post("/request_reset_code",CheckEmailApplicant)
 router.post("/verify_reset_code",CheckCode)
 //verify_reset_code
 router.post("/reset_password",UpdatePasswordApplicant)
+//Submit_SignFinalOfferLetter
+router.put("/Submit_SignFinalOfferLetter",Submit_SignFinalOfferLetter)
 
  
 
@@ -236,7 +239,7 @@ router.post("/upload_file_sett",HandleDoc_uplaod_Settings.single('file'),UploadD
 // set
 router.put("/admin_update_password",CheckEmailAdmin,CheckPasswordAdmin,UpdatePassword)
 // {FinalLetterOffer}
-router.post("/final_letter_offer",HandleFinalLetter.single('file'),FinalLetterOffer)
+router.post("/final_letter_offer",FinalLetterOffer)
 // accepted_disbursement
 router.post("/accepted_disbursement",accepted_disbursement)
 // GetLoanSteps

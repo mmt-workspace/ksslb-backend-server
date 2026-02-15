@@ -170,22 +170,25 @@ const FinalOfferLetter = async (email) => {
   </div>
 
   <p>
-  We are delighted to inform you that your <strong>Final Loan Offer Letter</strong> is now ready and available for download on your dashboard.
+  We are delighted to inform you that your <strong>Final Loan Offer Letter</strong> is now ready and requires your signature along with your guarantor's signature.
   </p>
 
   <div class="alert">
   <strong>Action Required:</strong><br>
-  Please log in to your account and download your offer letter from the dashboard. This document contains important details about your approved loan.
+  Please log in to your account and sign your Final Offer Letter. Both you (the borrower) and your guarantor must sign the document to proceed.
   </div>
 
-  <p><strong>How to Download Your Offer Letter:</strong></p>
+  <p><strong>Important Signing Instructions:</strong></p>
   <div class="steps">
   <ol>
   <li>Log in to the KADSSLB portal using your credentials</li>
   <li>Navigate to your <strong>Dashboard</strong></li>
   <li>Go to <strong>My Applications</strong> section</li>
-  <li>Click on the <strong>Download Offer Letter</strong> button</li>
-  <li>Save the document for your records</li>
+  <li>Click on <strong>View Details</strong></li>
+  <li>Click on <strong>Final Offer Letter</strong></li>
+  <li><strong>For Borrower:</strong> Only the <strong>borrower</strong> is allowed to click the <strong>"Sign"</strong> button to sign as the borrower</li>
+  <li><strong>For Guarantor:</strong> Only the <strong>guarantor</strong> is allowed to click the <strong>"Guarantor Sign"</strong> button to sign as the guarantor/co-debtor</li>
+  <li>Once both signatures are completed, the document will be processed</li>
   </ol>
   </div>
 
@@ -194,7 +197,7 @@ const FinalOfferLetter = async (email) => {
   </p>
 
   <p style="margin-top: 25px;">
-  <a href="https://kadsslb.mmt-ng.com" class="button">Go to Portal & Download</a>
+  <a href="https://kadsslb.mmt-ng.com" class="button">Go to Portal & Sign</a>
   </p>
 
   <p style="margin-top: 25px;">

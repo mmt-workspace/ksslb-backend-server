@@ -17,20 +17,18 @@ FinalLetterOffer = (req,res)=>{
     const {user_token} = req.body
 
 
-    const file = req.file.filename
+   
     const file_name = "Final Offer Letter"
 
      if(!user_token || !file_name){
          return res.sendStatus(400)
      }
    
-     if(!req.file){
-         return res.sendStatus(400)
-     }
+    
 
 
     const checkSql = 'SELECT * FROM loan_steps WHERE user_token = ? AND done = ?'
-    const sql = "INSERT INTO disbursement_requests_submit_file(user_token,file_token,file_name,updatedAtTime,updatedAtDate) VALUES(?,?,?,?,?);"
+    const sql = "INSERT INTO disbursement_requests_submit_file(user_token,file_token,updatedAtTime,updatedAtDate) VALUES(?,?,?,?);"
     const approved_disbursement = "accepted_disbursement"
     const file_token = TokensGenerator(10)
     const getEmailSql = "SELECT email FROM sign_up WHERE user_token = ?;"
@@ -48,7 +46,7 @@ FinalLetterOffer = (req,res)=>{
 
             if(result.length > 0) { 
 
-                db.query(sql, [user_token,file_token,file,SetTimeFormat(),SetDateFomat()], (err) => {
+                db.query(sql, [user_token,file_token,SetTimeFormat(),SetDateFomat()], (err) => {
                      
                      if(err) {
                          console.log(err.message)
@@ -169,4 +167,119 @@ Getdisbursement_requests_submit_file = (req,res)=>{
     }
 
 
-  module.exports = {FinalLetterOffer,accepted_disbursement,GetLoanSteps,Getdisbursement_requests_submit_file}
+Submit_SignFinalOfferLetter = (req,res)=>{
+
+        const {user_token,type,from} = req.body
+        let sql , sign,stage ,stepsql
+        
+        
+
+
+     
+
+
+        if(from === "applicant"){
+         
+        if(type === "borrower"){
+
+             sql = "UPDATE disbursement_requests SET file_applicant_sign = ?, updatedAtTime_applicant = ?, updatedAtDate_applicant = ? WHERE user_token = ?;"
+            stepsql = "UPDATE loan_steps SET agreed_sign = ? WHERE user_token = ?;"
+             sign = "agreed"
+             stage = "agreed"
+            
+
+        }else if(type === "guarantor"){
+
+             sql = "UPDATE disbursement_requests SET file_guarantor_sign = ?, updatedAtTime_guarantor = ?, updatedAtDate_guarantor = ? WHERE user_token = ?;"
+            stepsql = "UPDATE loan_steps SET agreed_g = ? WHERE user_token = ?;"
+              sign = "agreed"
+              stage = "agreed"
+             
+
+          
+        }else{
+
+            return res.send({status: false, textStatus: "Invalid signer type"})
+
+        }
+
+    }
+
+
+    if(from === "sponsor"){
+
+          
+            if(type === "borrower"){
+
+            sql = "UPDATE disbursement_requests SET file_sponsor_sign = ?, updatedAtTime_sponsor = ?, updatedAtDate_sponsor = ? WHERE user_token = ?;"
+               stepsql = "UPDATE loan_steps SET agreed_sign = ? WHERE user_token = ?;"
+            sign = "agreed"
+           stage = "agreed"
+            
+            }else if(type === "guarantor"){
+
+
+                sql = "UPDATE disbursement_requests SET file_guarantor_sign_t = ?, updatedAtTime_guarantor_t = ?, updatedAtDate_guarantor_t = ? WHERE user_token = ?;"
+                 stepsql = "UPDATE loan_steps SET  agreed_g = ? WHERE user_token = ?;"
+                sign = "agreed"
+              stage = "agreed"
+              
+                
+
+
+
+            }
+
+
+
+
+
+    }
+
+
+       db.query("SELECT * FROM disbursement_requests_submit_file WHERE user_token = ?;",[user_token],(err,result)=>{
+
+
+                   if(err) return console.log(err)
+                    
+                    if(!result.length > 0){
+
+                        res.send({
+                           
+                             status:false,
+                             textStatus:"no record found"
+                        })
+
+                        return
+
+                    }
+
+       })
+
+        db.query(sql,[sign, SetTimeFormat(), SetDateFomat(), user_token],(err,result)=>{
+            
+            if(err) return console.log(err)
+
+
+                   db.query(stepsql,[stage,user_token],(err,result)=>{
+                      if(err) return console.log(err)
+                        
+                       })
+                
+            res.send({
+         
+                 status:true,
+                 textStatus:"Agreed & Signed"
+            })  
+            
+            
+        })
+
+
+
+
+
+    }
+
+
+  module.exports = {FinalLetterOffer,accepted_disbursement,GetLoanSteps,Getdisbursement_requests_submit_file,Submit_SignFinalOfferLetter}

@@ -139,34 +139,34 @@ const WelcomeEmail = async (email) => {
       with the objectives of the Kaduna State Government in supporting students in tertiary institutions.
     </p>
 
-    <div class="note">
+     <div class="note">
       <strong>Note:</strong> You will be notified via email and your KADSSLB dashboard once a decision has been made.
       Please ensure that all your uploaded documents are valid and up to date.
-    </div>
+     </div>
 
-    <p>
+     <p>
       You can monitor the progress of your loan application or make necessary updates by logging in to your portal dashboard.
-    </p>
+     </p>
 
-    <p style="margin-top: 25px;">
+     <p style="margin-top: 25px;">
       <a href="https://kadsslb.mmt-ng.com" class="button">View Loan Application</a>
-    </p>
+     </p>
 
-    <p style="margin-top: 25px;">
+     <p style="margin-top: 25px;">
       <strong>Warm regards,</strong><br>
       <span>Kaduna State Scholarship and Loans Board</span><br>
       <span>Supporting Students. Empowering Futures.</span>
-    </p>
-  </div>
+     </p>
+     </div>
 
-  <div class="footer">
+    <div class="footer">
     © 2025 Kaduna State Scholarship and Loans Board. All rights reserved.<br>
-    This is an automated message; please do not reply.
-     <div style="color:#555;" className="">
+      This is an automated message; please do not reply.
+      <div style="color:#555;" className="">
         Powered by <span style="color:#555;"><a href="https://mmt-ng.com" style="color:#555;">MastermindTech</a></span>
       </div>
-  </div>
-</div>
+     </div>
+     </div>
 
 </body>
 </html>

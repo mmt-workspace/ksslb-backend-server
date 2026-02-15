@@ -230,6 +230,8 @@ CREATE TABLE loan_steps(
       createdAtDate VARCHAR(100)
 );
 
+alter TABLE loan_steps add column agreed_sign VARCHAR(100);
+alter TABLE loan_steps add column agreed_g VARCHAR(100);
 /* scholarships steps */
 
 CREATE TABLE scholarship_steps(
@@ -792,6 +794,22 @@ alter table disbursement_requests add column reason_text Text;
 alter table disbursement_requests add column approved_request VARCHAR(255);
 alter table disbursement_requests add column accept_request VARCHAR(255);
 alter table disbursement_requests add column b_schoolAccountNumber VARCHAR(255);
+alter table disbursement_requests add column guarantor VARCHAR(255);
+alter table disbursement_requests add column c_schoolAccountNumber VARCHAR(255);
+alter table disbursement_requests add column isactive VARCHAR(255) DEFAULT "yes";
+alter table disbursement_requests add column return_ut VARCHAR(255) DEFAULT "no";
+  alter table disbursement_requests add column   file_sponsor_sign VARCHAR(255);
+  alter table disbursement_requests add column   file_applicant_sign VARCHAR(255);
+  alter table disbursement_requests add column   file_guarantor_sign VARCHAR(255);
+  alter table disbursement_requests add column   letter_text text;
+  alter table disbursement_requests add column   updatedAtTime_applicant VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtTime_sponsor VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtTime_guarantor VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtDate_applicant VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtDate_sponsor VARCHAR(50);
+  alter table disbursement_requests add column   file_guarantor_sign_t VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtTime_guarantor_t VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtDate_guarantor_t VARCHAR(50);
 
 
 /* disbursement_requests_submit_file  */
@@ -802,7 +820,7 @@ CREATE TABLE disbursement_requests_submit_file (
     user_token VARCHAR(255) UNIQUE NOT NULL,
     file_token VARCHAR(255),
     file_name VARCHAR(255),
-    file_path VARCHAR(500),
+    letter_text text,
      updatedAtTime VARCHAR(50),
     updatedAtDate VARCHAR(50)
 
