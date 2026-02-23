@@ -514,6 +514,7 @@ CREATE TABLE spouse_details (
 
 /* resdential address */
 CREATE TABLE residentialAddress (
+
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   residential_address TEXT,
   residential_status  VARCHAR(150),
@@ -526,6 +527,7 @@ CREATE TABLE residentialAddress (
   valuePer  int DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -796,6 +798,7 @@ alter table disbursement_requests add column accept_request VARCHAR(255);
 alter table disbursement_requests add column b_schoolAccountNumber VARCHAR(255);
 alter table disbursement_requests add column guarantor VARCHAR(255);
 alter table disbursement_requests add column c_schoolAccountNumber VARCHAR(255);
+alter table disbursement_requests add column c_amount VARCHAR(255);
 alter table disbursement_requests add column isactive VARCHAR(255) DEFAULT "yes";
 alter table disbursement_requests add column return_ut VARCHAR(255) DEFAULT "no";
   alter table disbursement_requests add column   file_sponsor_sign VARCHAR(255);
@@ -805,6 +808,7 @@ alter table disbursement_requests add column return_ut VARCHAR(255) DEFAULT "no"
   alter table disbursement_requests add column   updatedAtTime_applicant VARCHAR(50);
   alter table disbursement_requests add column   updatedAtTime_sponsor VARCHAR(50);
   alter table disbursement_requests add column   updatedAtTime_guarantor VARCHAR(50);
+  alter table disbursement_requests add column   updatedAtDate_guarantor VARCHAR(50);
   alter table disbursement_requests add column   updatedAtDate_applicant VARCHAR(50);
   alter table disbursement_requests add column   updatedAtDate_sponsor VARCHAR(50);
   alter table disbursement_requests add column   file_guarantor_sign_t VARCHAR(50);
