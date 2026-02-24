@@ -10,7 +10,7 @@ LoginApplicant = (req,res)=>{
    const {email} = req.body
 
    // Get user data
-   
+    
    
    let sql = "SELECT email,user_token FROM sign_up WHERE email = ?;"
 
