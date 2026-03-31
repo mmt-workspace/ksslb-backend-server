@@ -1,27 +1,20 @@
 const nodemailer = require("nodemailer");
+const emailConfig = require("./EmailConfig")
+
+
+
 
 const VerificationNotfication = async (email,verify_status,document_type_name,rejectionReason,reject_message) => {
    
   try {
-    let transporter = nodemailer.createTransport({
-      host: "smtp.hmailplus.com",
-      port: 465,
-      secure: true, // SSL/TLS
-      auth: {
-        user: "admin@mmt-ng.com",
-        pass: "36366360mmT@@", // use actual password
-      },
-      tls: {
-        rejectUnauthorized: false, // optional
-      },
-    });
+    let transporter = nodemailer.createTransport(emailConfig);
 
     // optional: verify connection
     await transporter.verify();
     console.log("✅ SMTP Server is ready to send mail (port 465)");
 
     let info = await transporter.sendMail({
-      from: 'admin@mmt-ng.com',
+      from: 'srv474867.hstgr.cloud@tienssg.com',
       to: email,
       subject: "Kaduna State Scholarship And Loans Board, One of your uploaded document is rejected",
       html: `

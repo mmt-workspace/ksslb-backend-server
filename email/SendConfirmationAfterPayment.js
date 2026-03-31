@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-
+const emailConfig = require("./EmailConfig")
 
 
 
@@ -11,19 +11,11 @@ const  SendPassward = (email,token,fname) =>{
     async function main() {
           
        // create reusable transporter object using the default SMTP transport
-       let transporter = nodemailer.createTransport({
-        host: "smtp.hmailplus.com",
-        port: 587,
-        secure: true, // true for 465, false for other ports
-        auth: {
-          user: "admin@mmt-ng.com", // generated ethereal user
-          pass: "36366360mmT@@", // generated ethereal password
-        },
-      });
+       let transporter = nodemailer.createTransport(emailConfig);
       
       // send mail with defined transport object
       let info = await transporter.sendMail({
-          from: 'admin@mmt-ng.com', // sender address
+          from: 'srv474867.hstgr.cloud@tienssg.com', // sender address
           to: `${email}`, // list of receivers
           subject: 'KADSSLB PAY', // Subject line
         //   attachments: [""],

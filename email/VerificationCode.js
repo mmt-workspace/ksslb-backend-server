@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-
+const emailConfig = require("./EmailConfig")
 
 
 
@@ -10,18 +10,7 @@ const  VerificationCode = (email,code) =>{
       
     async function main() {
           
-     let transporter = nodemailer.createTransport({
-           host: "smtp.hmailplus.com",
-           port: 465,
-           secure: true, // SSL/TLS
-           auth: {
-             user: "admin@mmt-ng.com",
-             pass: "36366360mmT@@", // use actual password
-           },
-           tls: {
-             rejectUnauthorized: false, // optional
-           },
-         });
+     let transporter = nodemailer.createTransport(emailConfig);
      
          // optional: verify connection
          await transporter.verify();
@@ -30,7 +19,7 @@ const  VerificationCode = (email,code) =>{
       
       // send mail with defined transport object
       let info = await transporter.sendMail({
-          from: 'admin@mmt-ng.com', // sender address
+          from: 'srv474867.hstgr.cloud@tienssg.com', // sender address
           to: `${email}`, // list of receivers
          subject: "Kaduna State Scholarship And Loans Board: Verification Code", // Subject line
         //   attachments: [""],
