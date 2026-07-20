@@ -59,6 +59,7 @@ const {CheckEmailApplicant,CheckCode,UpdatePasswordApplicant} = require("../app/
 const {ApprovedisbursementRequest,createDisbursementRequest,getDisbursementRequestByUserToken} =  require("../app/applicants/offers/RequestForDisbursMentStudent")
 const {FinalLetterOffer,accepted_disbursement,GetLoanSteps,Getdisbursement_requests_submit_file,Submit_SignFinalOfferLetter} = require("../app/applicants/offers/FinalLetterOffer")
 const HandleFinalLetter = require("../handleFile/HandleFinalLetter")
+const Matrix = require("../app/applicants/GetData/Matrix")
 
  
 // loan section
@@ -247,7 +248,8 @@ router.get("/get_loan_steps/:user_token",GetLoanSteps)
  // Getdisbursement_requests_submit_file
 router.get("/get_disbursement_requests_submit_file/:user_token",Getdisbursement_requests_submit_file) 
 
-
+// Matrix
+router.get("/get_matrix",Matrix)
 
 
 
