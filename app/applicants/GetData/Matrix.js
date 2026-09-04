@@ -48,10 +48,10 @@ CREATE TABLE loan_requests (
             LEFT JOIN loan_steps loan_step ON bt.user_token COLLATE utf8mb4_unicode_ci = loan_step.user_token COLLATE utf8mb4_unicode_ci
             LEFT JOIN demography_table ON bt.user_token COLLATE utf8mb4_unicode_ci = demography_table.user_token COLLATE utf8mb4_unicode_ci
             LEFT JOIN bank_details ON bt.user_token COLLATE utf8mb4_unicode_ci = bank_details.user_token COLLATE utf8mb4_unicode_ci
-            LEFT JOIN sponsorIdentification ON bt.user_token COLLATE utf8mb4_unicode_ci = sponsorIdentification.user_token COLLATE utf8mb4_unicode_ci
+            LEFT JOIN sponsorIdentification ON bt.user_token COLLATE utf8mb4_unicode_ci = sponsorIdentification.token COLLATE utf8mb4_unicode_ci
             LEFT JOIN loan_requests ON bt.user_token COLLATE utf8mb4_unicode_ci = loan_requests.token COLLATE utf8mb4_unicode_ci
             LEFT JOIN disbursement_requests ON bt.user_token COLLATE utf8mb4_unicode_ci = disbursement_requests.user_token COLLATE utf8mb4_unicode_ci
-            LEFT JOIN guarantor_details ON bt.user_token COLLATE utf8mb4_unicode_ci = guarantor_details.user_token COLLATE utf8mb4_unicode_ci
+            LEFT JOIN guarantor_details ON bt.user_token COLLATE utf8mb4_unicode_ci = guarantor_details.token COLLATE utf8mb4_unicode_ci
             WHERE 
                 su.verify_status = 'accepted' 
                 AND loan.apply_status = 'applied' 
