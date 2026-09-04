@@ -25,6 +25,7 @@ CREATE TABLE Administration(
        signupDate DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+alter table Administration add column matrix_status BOOLEAN DEFAULT 0;
 
 /* JWT Table */
 

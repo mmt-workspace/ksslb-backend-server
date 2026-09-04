@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const RegisterAdministration = require("../app/dashbord/Administration/register")
 // const GetPaidList = require("../app/dashbord/PaidData/GetPaidList")
-const {GetAdminUsers,GetDataForSingleAdmin}= require("../app/dashbord/Administration/GetAdminUsers")
+const {GetAdminUsers,GetDataForSingleAdmin,UpdateMatrixStatusOfAdminUsers}= require("../app/dashbord/Administration/GetAdminUsers")
 const CheckEmail = require("../app/dashbord/Administration/CheckEmail")
 const CheckMobile = require("../app/dashbord/Administration/CheckMobile")
 const SetScholarship = require("../app/dashbord/Scholarship/SetScholarship")
@@ -80,6 +80,8 @@ const updateGuarantorDetails  = require("../app/applicants/SignUp/loan/update/up
 router.post("/register_administration",CheckEmail,CheckMobile,RegisterAdministration)
 // Get all Admin user info
 router.get("/get_admin_users",GetAdminUsers)
+// Update matrix status of admin users
+router.put("/update_matrix_status_admin_users",UpdateMatrixStatusOfAdminUsers)
 // Get All Payment
 // router.get("/get_paid_list",GetPaidList)
 // Amount 

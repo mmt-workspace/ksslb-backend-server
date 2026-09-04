@@ -44,10 +44,23 @@ GetDataForSingleAdmin = (req,res)=>{
 }
 
 
+// can see matrix status of admin users
+
+UpdateMatrixStatusOfAdminUsers = (req,res)=>{
+
+    const sql = "UPDATE Administration SET matrix_status = ? WHERE userToken = ?;"
+
+    db.query(sql,[req.body.matrix_status, req.body.userToken],(err,result)=>{
+
+     if(err)  return console.log(err.message)
+         
+       res.send(result)       
+    })
+
+}
 
 
 
 
 
-
-module.exports = {GetAdminUsers,GetDataForSingleAdmin}
+module.exports = {GetAdminUsers,GetDataForSingleAdmin, UpdateMatrixStatusOfAdminUsers}
