@@ -54,7 +54,7 @@ UpdateMatrixStatusOfAdminUsers = (req,res)=>{
 
      if(err)  return console.log(err.message)
          
-       res.send(result)       
+       res.send({status:true,message:"Matrix status updated successfully"})       
     })
 
 }
